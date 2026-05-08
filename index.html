@@ -161,6 +161,14 @@
   .addon-desc{font-size:12px;color:var(--muted);line-height:1.65;flex:1;margin-bottom:14px;}
   .addon-btn{display:block;text-align:center;padding:10px;border:1px solid var(--line);border-radius:999px;font-family:'Abel',sans-serif;font-size:12px;color:var(--white);text-decoration:none;transition:border-color .15s,color .15s;}
   .addon-btn:hover{border-color:var(--gold);color:var(--gold);}
+  .addon-btn.disabled,.btn.disabled{opacity:0.38;pointer-events:none;cursor:not-allowed;}
+  .terms-bar{margin:32px 0 20px;padding:18px 22px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,0.04);display:flex;align-items:flex-start;gap:14px;}
+  .terms-bar input[type=checkbox]{width:18px;height:18px;flex-shrink:0;margin-top:2px;accent-color:var(--gold);cursor:pointer;}
+  .terms-bar label{font-size:13px;color:var(--muted);line-height:1.6;cursor:pointer;}
+  .terms-bar label a{color:var(--gold);text-decoration:underline;}
+  .terms-bar label a:hover{color:var(--gold-2);}
+  .terms-warn{font-size:11px;color:rgba(210,171,115,0.6);margin-top:6px;margin-left:32px;display:none;}
+  .terms-warn.show{display:block;}
 
   /* DATA */
   .data-sec{background:var(--teal);border-top:1px solid var(--line);}
@@ -204,7 +212,7 @@
 <nav class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="#top">
-      <img src="logo-mark.svg" alt="ATM Platform">
+      <img src="Transparent_Logo.svg" alt="ATM Platform">
     </a>
     <div class="nav-links">
       <a href="#problem">Why it exists</a>
@@ -392,6 +400,15 @@
       </div>
 
       <div class="sec-label" style="margin-bottom:16px;">One-time products &amp; add-ons</div>
+
+      <div class="terms-bar">
+        <input type="checkbox" id="terms-agree" onchange="handleTerms(this)">
+        <div>
+          <label for="terms-agree">I have read and agree to the ATM Platform <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>. I understand that platform outputs are informational only and do not constitute technical, regulatory, or airworthiness determinations.</label>
+          <div class="terms-warn" id="terms-warn">Please agree to the Terms of Service before purchasing.</div>
+        </div>
+      </div>
+
       <div class="addons-grid">
         <div class="addon"><div class="addon-name">Platform Setup &amp; Onboarding</div><div class="addon-price">$10,000</div><div class="addon-desc">Complete workspace config, first transaction loaded, 4-hr staff training, 30-day hypercare support.</div><a href="https://buy.stripe.com/test_7sY7sMdRK5EfcaXgY587K04" class="addon-btn">Add to order</a></div>
         <div class="addon"><div class="addon-name">ATM Template License</div><div class="addon-price">$2,500</div><div class="addon-desc">Full 17-sheet Smartsheet workspace template with implementation guide. DIY setup.</div><a href="https://buy.stripe.com/test_3cIcN68xq5Ef4Iv7nv87K05" class="addon-btn">Buy license</a></div>
@@ -434,6 +451,8 @@
   <div class="wrap footer-inner">
     <p>© <span id="yr"></span> Liberated Blade LLC · ATM Platform is proprietary IP of Liberated Blade LLC</p>
     <div class="footer-links">
+      <a href="/terms">Terms of Service</a>
+      <a href="/privacy">Privacy Policy</a>
       <a href="mailto:geoffrey@liberatedblade.com">Contact</a>
       <a href="https://aerotalentpro.com" target="_blank" rel="noopener">AeroTalentPro</a>
     </div>
@@ -444,6 +463,34 @@
 document.getElementById('yr').textContent=new Date().getFullYear();
 var isAnn=false;
 var U={sm:'https://buy.stripe.com/test_14A8wQ7tm5Ef3ErgY587K00',sa:'https://buy.stripe.com/test_00w8wQdRK4Aba2P9vD87K01',pm:'https://buy.stripe.com/test_dRmdRa6p19Uv4IvcHP87K02',pa:'https://buy.stripe.com/test_dRm5kE14YaYzfn9bDL87K03'};
+
+// Disable all purchase buttons on load until terms agreed
+function setPurchaseState(enabled){
+  ['btn-s','btn-p'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){el.classList.toggle('disabled',!enabled);}
+  });
+  document.querySelectorAll('.addon-btn').forEach(function(el){
+    el.classList.toggle('disabled',!enabled);
+  });
+}
+setPurchaseState(false);
+
+function handleTerms(cb){
+  setPurchaseState(cb.checked);
+  document.getElementById('terms-warn').classList.toggle('show',!cb.checked);
+}
+
+// Intercept clicks on disabled purchase buttons to show warning
+document.addEventListener('click',function(e){
+  var t=e.target.closest('.addon-btn,.btn');
+  if(t && t.classList.contains('disabled')){
+    e.preventDefault();
+    document.getElementById('terms-warn').classList.add('show');
+    document.getElementById('terms-agree').scrollIntoView({behavior:'smooth',block:'center'});
+  }
+});
+
 function swBill(){
   isAnn=document.getElementById('btog').checked;
   document.getElementById('lbl-mo').classList.toggle('on',!isAnn);
