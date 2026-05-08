@@ -31,40 +31,40 @@
   .nav-links a:hover { color: var(--white); }
   .nav-cta { background: var(--gold); color: var(--teal); padding: 9px 22px; border-radius: 4px; font-size: 14px; letter-spacing: 0.5px; text-decoration: none; transition: background 0.2s; }
   .nav-cta:hover { background: var(--gold-light); }
-  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 120px 48px 80px; position: relative; overflow: hidden; }
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 100px 80px 60px; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 50% at 65% 45%, rgba(210,171,115,0.07) 0%, transparent 70%); pointer-events: none; }
-  .eyebrow { font-size: 12px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; }
+  .eyebrow { font-size: 11px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; display: flex; align-items: center; gap: 14px; }
   .eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--gold); }
-  .hero h1 { font-family: 'Bellefair', serif; font-size: clamp(44px, 6vw, 82px); line-height: 1.04; max-width: 780px; margin-bottom: 24px; font-weight: 400; }
+  .hero h1 { font-family: 'Bellefair', serif; font-size: clamp(32px, 3.5vw, 56px); line-height: 1.08; max-width: 680px; margin-bottom: 20px; font-weight: 400; }
   .hero h1 em { font-style: normal; color: var(--gold); }
-  .hero-sub { font-size: 18px; color: var(--muted); max-width: 540px; line-height: 1.75; margin-bottom: 44px; }
-  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
-  .btn-primary { background: var(--gold); color: var(--teal); padding: 13px 32px; border-radius: 4px; font-size: 15px; letter-spacing: 0.5px; text-decoration: none; transition: background 0.2s; display: inline-block; }
+  .hero-sub { font-size: 16px; color: var(--muted); max-width: 480px; line-height: 1.75; margin-bottom: 36px; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary { background: var(--gold); color: var(--teal); padding: 12px 28px; border-radius: 4px; font-size: 14px; letter-spacing: 0.5px; text-decoration: none; transition: background 0.2s; display: inline-block; }
   .btn-primary:hover { background: var(--gold-light); }
-  .btn-ghost { color: var(--white); border: 1px solid rgba(245,245,245,0.25); padding: 13px 32px; border-radius: 4px; font-size: 15px; letter-spacing: 0.5px; text-decoration: none; transition: border-color 0.2s, color 0.2s; display: inline-block; }
+  .btn-ghost { color: var(--white); border: 1px solid rgba(245,245,245,0.25); padding: 12px 28px; border-radius: 4px; font-size: 14px; letter-spacing: 0.5px; text-decoration: none; transition: border-color 0.2s, color 0.2s; display: inline-block; }
   .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
-  .hero-stats { display: flex; gap: 56px; margin-top: 72px; padding-top: 36px; border-top: 1px solid var(--border); flex-wrap: wrap; }
-  .stat-num { font-family: 'Bellefair', serif; font-size: 38px; color: var(--gold); display: block; font-weight: 400; }
-  .stat-label { font-size: 13px; color: var(--muted); margin-top: 3px; }
-  section { padding: 96px 48px; }
+  .hero-stats { display: flex; gap: 48px; margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .stat-num { font-family: 'Bellefair', serif; font-size: 32px; color: var(--gold); display: block; font-weight: 400; }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  section { padding: 80px 80px; }
   .sec-label { font-size: 11px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
-  .sec-title { font-family: 'Bellefair', serif; font-size: clamp(28px, 4vw, 48px); line-height: 1.08; margin-bottom: 18px; font-weight: 400; }
-  .sec-sub { font-size: 17px; color: var(--muted); max-width: 560px; line-height: 1.75; margin-bottom: 52px; }
+  .sec-title { font-family: 'Bellefair', serif; font-size: clamp(24px, 3vw, 40px); line-height: 1.1; margin-bottom: 16px; font-weight: 400; }
+  .sec-sub { font-size: 16px; color: var(--muted); max-width: 520px; line-height: 1.75; margin-bottom: 44px; }
   .pillars { background: var(--teal-mid); }
-  .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-  .pillar { background: var(--teal-mid); padding: 40px 36px; }
-  .pillar-icon { width: 38px; height: 38px; margin-bottom: 18px; border: 1px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
-  .pillar h3 { font-family: 'Bellefair', serif; font-size: 18px; font-weight: 400; margin-bottom: 10px; }
-  .pillar p { font-size: 14px; color: var(--muted); line-height: 1.75; }
+  .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .pillar { background: var(--teal-mid); padding: 36px 32px; }
+  .pillar-icon { width: 36px; height: 36px; margin-bottom: 16px; border: 1px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+  .pillar h3 { font-family: 'Bellefair', serif; font-size: 17px; font-weight: 400; margin-bottom: 10px; }
+  .pillar p { font-size: 13px; color: var(--muted); line-height: 1.75; }
   .how { background: var(--teal); }
-  .steps { max-width: 700px; }
-  .step { display: flex; gap: 28px; padding: 28px 0; border-bottom: 1px solid var(--border); }
+  .steps { max-width: 680px; }
+  .step { display: flex; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--border); }
   .step:last-child { border-bottom: none; }
-  .step-num { font-family: 'Bellefair', serif; font-size: 36px; color: var(--gold-border); min-width: 44px; line-height: 1; padding-top: 3px; font-weight: 400; }
-  .step h3 { font-family: 'Bellefair', serif; font-size: 17px; font-weight: 400; margin-bottom: 7px; }
-  .step p { font-size: 14px; color: var(--muted); line-height: 1.75; }
+  .step-num { font-family: 'Bellefair', serif; font-size: 32px; color: var(--gold-border); min-width: 40px; line-height: 1; padding-top: 3px; font-weight: 400; }
+  .step h3 { font-family: 'Bellefair', serif; font-size: 16px; font-weight: 400; margin-bottom: 6px; }
+  .step p { font-size: 13px; color: var(--muted); line-height: 1.75; }
   .pricing { background: var(--teal-mid); }
-  .billing-toggle { display: flex; align-items: center; gap: 14px; margin-bottom: 44px; }
+  .billing-toggle { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
   .tog-lbl { font-size: 14px; color: var(--muted); }
   .tog-lbl.active { color: var(--white); }
   .tog-wrap { position: relative; width: 44px; height: 24px; background: var(--teal-light); border-radius: 12px; cursor: pointer; border: 1px solid var(--border); }
@@ -72,41 +72,41 @@
   .tog-thumb { position: absolute; width: 18px; height: 18px; background: var(--gold); border-radius: 50%; top: 2px; left: 2px; transition: transform 0.2s; }
   .tog-wrap input:checked ~ .tog-thumb { transform: translateX(20px); }
   .save-pill { font-size: 11px; padding: 3px 10px; background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold-border); border-radius: 20px; letter-spacing: 0.5px; }
-  .plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 48px; }
-  .plan { background: var(--teal); border: 1px solid var(--border); border-radius: 8px; padding: 30px; display: flex; flex-direction: column; }
+  .plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 44px; }
+  .plan { background: var(--teal); border: 1px solid var(--border); border-radius: 8px; padding: 28px; display: flex; flex-direction: column; }
   .plan.featured { background: var(--teal-light); border-color: var(--gold); }
-  .plan-badge { display: inline-block; font-size: 11px; letter-spacing: 1px; padding: 4px 12px; background: var(--gold-dim); color: var(--gold); border-radius: 20px; margin-bottom: 14px; border: 1px solid var(--gold-border); text-transform: uppercase; }
-  .plan-name { font-family: 'Bellefair', serif; font-size: 22px; font-weight: 400; margin-bottom: 4px; }
-  .plan-tag { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
-  .plan-price { margin-bottom: 26px; }
-  .plan-price .amt { font-family: 'Bellefair', serif; font-size: 46px; font-weight: 400; }
-  .plan-price .per { font-size: 14px; color: var(--muted); }
-  .plan-price .bill { font-size: 12px; color: var(--muted); margin-top: 4px; min-height: 18px; }
-  .plan-feats { flex: 1; margin-bottom: 26px; }
-  .feat { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--muted); margin-bottom: 9px; line-height: 1.5; }
+  .plan-badge { display: inline-block; font-size: 11px; letter-spacing: 1px; padding: 4px 12px; background: var(--gold-dim); color: var(--gold); border-radius: 20px; margin-bottom: 12px; border: 1px solid var(--gold-border); text-transform: uppercase; }
+  .plan-name { font-family: 'Bellefair', serif; font-size: 20px; font-weight: 400; margin-bottom: 4px; }
+  .plan-tag { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+  .plan-price { margin-bottom: 22px; }
+  .plan-price .amt { font-family: 'Bellefair', serif; font-size: 40px; font-weight: 400; }
+  .plan-price .per { font-size: 13px; color: var(--muted); }
+  .plan-price .bill { font-size: 11px; color: var(--muted); margin-top: 4px; min-height: 16px; }
+  .plan-feats { flex: 1; margin-bottom: 22px; }
+  .feat { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: var(--muted); margin-bottom: 8px; line-height: 1.5; }
   .feat svg { flex-shrink: 0; margin-top: 2px; }
-  .plan-btn { display: block; text-align: center; padding: 12px; border-radius: 4px; font-size: 14px; letter-spacing: 0.5px; text-decoration: none; transition: all 0.2s; border: 1px solid var(--border); color: var(--white); }
+  .plan-btn { display: block; text-align: center; padding: 11px; border-radius: 4px; font-size: 13px; letter-spacing: 0.5px; text-decoration: none; transition: all 0.2s; border: 1px solid var(--border); color: var(--white); }
   .plan-btn:hover { border-color: var(--gold); color: var(--gold); }
   .plan.featured .plan-btn { background: var(--gold); color: var(--teal); border-color: var(--gold); }
   .plan.featured .plan-btn:hover { background: var(--gold-light); }
-  .addons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
-  .addon { background: var(--teal); border: 1px solid var(--border); border-radius: 8px; padding: 26px; display: flex; flex-direction: column; }
-  .addon-name { font-family: 'Bellefair', serif; font-size: 17px; font-weight: 400; margin-bottom: 8px; }
-  .addon-price { font-family: 'Bellefair', serif; font-size: 28px; font-weight: 400; color: var(--gold); margin-bottom: 10px; }
-  .addon-price span { font-family: 'Abel', sans-serif; font-size: 13px; color: var(--muted); }
-  .addon-desc { font-size: 13px; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 18px; }
-  .addon-btn { display: block; text-align: center; padding: 10px; border: 1px solid var(--border); border-radius: 4px; font-size: 13px; color: var(--white); text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+  .addons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  .addon { background: var(--teal); border: 1px solid var(--border); border-radius: 8px; padding: 24px; display: flex; flex-direction: column; }
+  .addon-name { font-family: 'Bellefair', serif; font-size: 16px; font-weight: 400; margin-bottom: 6px; }
+  .addon-price { font-family: 'Bellefair', serif; font-size: 26px; font-weight: 400; color: var(--gold); margin-bottom: 8px; }
+  .addon-price span { font-family: 'Abel', sans-serif; font-size: 12px; color: var(--muted); }
+  .addon-desc { font-size: 12px; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 16px; }
+  .addon-btn { display: block; text-align: center; padding: 10px; border: 1px solid var(--border); border-radius: 4px; font-size: 12px; color: var(--white); text-decoration: none; transition: border-color 0.2s, color 0.2s; }
   .addon-btn:hover { border-color: var(--gold); color: var(--gold); }
   .trust { background: var(--teal); }
-  .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 32px; }
+  .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px; }
   .trust-item { text-align: center; }
-  .trust-icon { width: 46px; height: 46px; margin: 0 auto 14px; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-  .trust-item h4 { font-family: 'Bellefair', serif; font-size: 16px; font-weight: 400; margin-bottom: 8px; }
+  .trust-icon { width: 44px; height: 44px; margin: 0 auto 12px; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .trust-item h4 { font-family: 'Bellefair', serif; font-size: 15px; font-weight: 400; margin-bottom: 6px; }
   .trust-item p { font-size: 13px; color: var(--muted); line-height: 1.7; }
-  .cta-band { background: var(--teal-mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; text-align: center; }
-  .cta-band h2 { font-family: 'Bellefair', serif; font-size: clamp(28px, 4vw, 48px); font-weight: 400; margin-bottom: 14px; }
-  .cta-band p { font-size: 17px; color: var(--muted); margin-bottom: 36px; }
-  footer { background: var(--teal); padding: 44px 48px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 20px; }
+  .cta-band { background: var(--teal-mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 72px 80px; text-align: center; }
+  .cta-band h2 { font-family: 'Bellefair', serif; font-size: clamp(24px, 3vw, 40px); font-weight: 400; margin-bottom: 12px; }
+  .cta-band p { font-size: 16px; color: var(--muted); margin-bottom: 32px; }
+  footer { background: var(--teal); padding: 36px 80px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 20px; }
   .footer-brand { display: flex; align-items: center; }
   footer p { font-size: 13px; color: var(--muted); }
   .footer-links { display: flex; gap: 24px; }
@@ -115,10 +115,11 @@
   @media (max-width: 768px) {
     nav { padding: 14px 24px; }
     .nav-links { display: none; }
-    .hero, section { padding-left: 24px; padding-right: 24px; }
-    .hero-stats { gap: 32px; }
-    .cta-band { padding: 56px 24px; }
-    footer { padding: 36px 24px; flex-direction: column; align-items: flex-start; }
+    .hero { padding: 90px 24px 48px; }
+    section { padding: 64px 24px; }
+    .hero-stats { gap: 28px; }
+    .cta-band { padding: 48px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
   }
 </style>
 </head>
@@ -226,7 +227,7 @@
       <a href="mailto:geoffrey@liberatedblade.com?subject=ATM Enterprise Inquiry" class="plan-btn">Contact us</a>
     </div>
   </div>
-  <div class="sec-label" style="margin-top:52px;margin-bottom:18px;">One-time products & add-ons</div>
+  <div class="sec-label" style="margin-top:44px;margin-bottom:16px;">One-time products & add-ons</div>
   <div class="addons-grid">
     <div class="addon"><div class="addon-name">Platform Setup & Onboarding</div><div class="addon-price">$10,000</div><div class="addon-desc">Complete workspace configuration, first transaction loaded by Aerofield, 4-hour staff training, 30-day hypercare support.</div><a href="https://buy.stripe.com/test_7sY7sMdRK5EfcaXgY587K04" class="addon-btn">Add to order</a></div>
     <div class="addon"><div class="addon-name">ATM Template License</div><div class="addon-price">$2,500</div><div class="addon-desc">Full 17-sheet Smartsheet workspace template with implementation guide. DIY setup — no managed service included.</div><a href="https://buy.stripe.com/test_3cIcN68xq5Ef4Iv7nv87K05" class="addon-btn">Buy license</a></div>
