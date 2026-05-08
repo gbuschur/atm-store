@@ -172,6 +172,23 @@
   .terms-warn.show{display:block;}
   .terms-locked-hint{font-size:11px;color:rgba(245,245,245,0.35);margin-top:4px;}
 
+  /* Terms modal */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;}
+  .modal-overlay.open{opacity:1;pointer-events:all;}
+  .modal{background:#0a3a41;border:1px solid rgba(210,171,115,0.35);border-radius:20px;padding:40px 36px;max-width:440px;width:calc(100% - 40px);position:relative;transform:translateY(12px);transition:transform .2s;}
+  .modal-overlay.open .modal{transform:translateY(0);}
+  .modal-close{position:absolute;top:16px;right:18px;background:none;border:none;color:rgba(245,245,245,0.4);font-size:22px;cursor:pointer;line-height:1;padding:4px;}
+  .modal-close:hover{color:var(--gold);}
+  .modal-icon{width:48px;height:48px;border-radius:50%;border:1px solid rgba(210,171,115,0.4);display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+  .modal-icon svg{width:22px;height:22px;}
+  .modal h3{font-family:'Bellefair',serif;font-weight:400;font-size:24px;color:var(--white);margin:0 0 10px;}
+  .modal p{font-size:14px;color:rgba(245,245,245,0.65);line-height:1.7;margin:0 0 24px;}
+  .modal-btn{display:block;width:100%;padding:14px;background:var(--gold);color:var(--teal);border:none;border-radius:999px;font-family:'Abel',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:background .15s;}
+  .modal-btn:hover{background:var(--gold-2);}
+  .modal-sub{text-align:center;margin-top:12px;font-size:12px;color:rgba(245,245,245,0.3);}
+  .modal-sub a{color:rgba(210,171,115,0.6);text-decoration:underline;}
+  .modal-sub a:hover{color:var(--gold);}
+
   /* DATA */
   .data-sec{background:var(--teal);border-top:1px solid var(--line);}
   .data-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
@@ -446,6 +463,24 @@
     </div>
   </section>
 
+<!-- Terms agreement modal -->
+<div class="modal-overlay" id="terms-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModalBtn()">&times;</button>
+    <div class="modal-icon">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 2L13.5 8.5H20L14.5 12.5L16.5 19L11 15L5.5 19L7.5 12.5L2 8.5H8.5L11 2Z" stroke="#D2AB73" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h3>One quick step first</h3>
+    <p>Before purchasing, please review and agree to the ATM Platform Terms of Service and Privacy Policy. This confirms you understand the nature of the platform and how your data is used.</p>
+    <button class="modal-btn" onclick="goToTerms()">Review &amp; agree to terms</button>
+    <div class="modal-sub">
+      Read the <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a> first
+    </div>
+  </div>
+</div>
+
 </main>
 
 <footer>
@@ -462,6 +497,7 @@
 
 <script>
 document.getElementById('yr').textContent=new Date().getFullYear();
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModalBtn();});
 var isAnn=false;
 var U={sm:'https://buy.stripe.com/test_14A8wQ7tm5Ef3ErgY587K00',sa:'https://buy.stripe.com/test_00w8wQdRK4Aba2P9vD87K01',pm:'https://buy.stripe.com/test_dRmdRa6p19Uv4IvcHP87K02',pa:'https://buy.stripe.com/test_dRm5kE14YaYzfn9bDL87K03'};
 
@@ -482,15 +518,31 @@ function handleTerms(cb){
   document.getElementById('terms-warn').classList.toggle('show',!cb.checked);
 }
 
-// Intercept clicks on disabled purchase buttons to show warning
+// Intercept clicks on disabled purchase buttons — show modal
 document.addEventListener('click',function(e){
   var t=e.target.closest('.addon-btn,.btn');
   if(t && t.classList.contains('disabled')){
     e.preventDefault();
-    document.getElementById('terms-warn').classList.add('show');
-    document.getElementById('terms-agree').scrollIntoView({behavior:'smooth',block:'center'});
+    document.getElementById('terms-modal').classList.add('open');
+    document.body.style.overflow='hidden';
   }
 });
+
+function closeModal(e){
+  if(e.target===document.getElementById('terms-modal')){
+    closeModalBtn();
+  }
+}
+function closeModalBtn(){
+  document.getElementById('terms-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function goToTerms(){
+  closeModalBtn();
+  var cb=document.getElementById('terms-agree');
+  cb.scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(function(){cb.focus();},400);
+}
 
 function swBill(){
   isAnn=document.getElementById('btog').checked;
