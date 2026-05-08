@@ -1,287 +1,482 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ATM Platform — Aircraft Transition Manager | AeroTalentPro</title>
-<meta name="description" content="The only managed platform built for aircraft lease transition integrity. Trusted by lessors, buyers, and Part 145 MROs.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bellefair&family=Abel&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aerofield Transition Manager | Aircraft Transition Integrity Platform</title>
+<meta name="description" content="Aerofield Transition Manager is an operator-led aircraft transition control system for lessors, buyers, inspectors, and MRO teams managing narrowbody aircraft lease transitions." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bellefair&family=Abel&display=swap" rel="stylesheet" />
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; }
   :root {
-    --teal:       #052E33;
-    --teal-mid:   #0A3D44;
-    --teal-light: #0F4D56;
-    --gold:       #D2AB73;
-    --gold-light: #E0C28F;
-    --gold-dim:   rgba(210,171,115,0.15);
-    --gold-border:rgba(210,171,115,0.25);
-    --white:      #F5F5F5;
-    --muted:      rgba(245,245,245,0.5);
-    --border:     rgba(210,171,115,0.2);
+    --teal: #052E33;
+    --teal-2: #07383F;
+    --teal-3: #0A4650;
+    --teal-4: #0D5964;
+    --gold: #D2AB73;
+    --gold-2: #E0C28F;
+    --white: #F5F5F5;
+    --ink: rgba(245,245,245,0.88);
+    --muted: rgba(245,245,245,0.64);
+    --dim: rgba(245,245,245,0.42);
+    --line: rgba(210,171,115,0.22);
+    --line-strong: rgba(210,171,115,0.38);
+    --panel: rgba(245,245,245,0.045);
+    --panel-2: rgba(245,245,245,0.075);
+    --shadow: 0 30px 90px rgba(0,0,0,0.28);
   }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Abel', sans-serif; background: var(--teal); color: var(--white); line-height: 1.6; font-size: 16px; }
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 14px 48px; display: flex; justify-content: space-between; align-items: center; background: rgba(5,46,51,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-  .nav-logo { display: flex; align-items: center; text-decoration: none; }
-  .nav-links { display: flex; gap: 32px; align-items: center; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; letter-spacing: 0.5px; transition: color 0.2s; }
+  body {
+    margin: 0;
+    font-family: 'Abel', sans-serif;
+    background: var(--teal);
+    color: var(--white);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  .wrap { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+  .nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 76px;
+    z-index: 50;
+    background: rgba(5,46,51,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+  .brand { display: flex; align-items: center; gap: 16px; text-decoration: none; }
+  .brand img { height: 42px; width: auto; }
+  .brand-mark { width: 1px; height: 34px; background: var(--line); }
+  .brand-text { display: flex; flex-direction: column; line-height: 1.05; }
+  .brand-text span:first-child { font-size: 13px; letter-spacing: 2.8px; color: var(--gold); text-transform: uppercase; }
+  .brand-text span:last-child { font-size: 12px; color: var(--muted); letter-spacing: 0.8px; }
+  .nav-links { display: flex; align-items: center; gap: 26px; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; letter-spacing: 0.4px; }
   .nav-links a:hover { color: var(--white); }
-  .nav-cta { background: var(--gold); color: var(--teal); padding: 9px 22px; border-radius: 4px; font-size: 14px; letter-spacing: 0.5px; text-decoration: none; transition: background 0.2s; }
-  .nav-cta:hover { background: var(--gold-light); }
-  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 100px 80px 60px; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 50% at 65% 45%, rgba(210,171,115,0.07) 0%, transparent 70%); pointer-events: none; }
-  .eyebrow { font-size: 11px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; display: flex; align-items: center; gap: 14px; }
-  .eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--gold); }
-  .hero h1 { font-family: 'Bellefair', serif; font-size: clamp(32px, 3.5vw, 56px); line-height: 1.08; max-width: 680px; margin-bottom: 20px; font-weight: 400; }
-  .hero h1 em { font-style: normal; color: var(--gold); }
-  .hero-sub { font-size: 16px; color: var(--muted); max-width: 480px; line-height: 1.75; margin-bottom: 36px; }
-  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-  .btn-primary { background: var(--gold); color: var(--teal); padding: 12px 28px; border-radius: 4px; font-size: 14px; letter-spacing: 0.5px; text-decoration: none; transition: background 0.2s; display: inline-block; }
-  .btn-primary:hover { background: var(--gold-light); }
-  .btn-ghost { color: var(--white); border: 1px solid rgba(245,245,245,0.25); padding: 12px 28px; border-radius: 4px; font-size: 14px; letter-spacing: 0.5px; text-decoration: none; transition: border-color 0.2s, color 0.2s; display: inline-block; }
-  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
-  .hero-stats { display: flex; gap: 48px; margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); flex-wrap: wrap; }
-  .stat-num { font-family: 'Bellefair', serif; font-size: 32px; color: var(--gold); display: block; font-weight: 400; }
-  .stat-label { font-size: 12px; color: var(--muted); margin-top: 3px; }
-  section { padding: 80px 80px; }
-  .sec-label { font-size: 11px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
-  .sec-title { font-family: 'Bellefair', serif; font-size: clamp(24px, 3vw, 40px); line-height: 1.1; margin-bottom: 16px; font-weight: 400; }
-  .sec-sub { font-size: 16px; color: var(--muted); max-width: 520px; line-height: 1.75; margin-bottom: 44px; }
-  .pillars { background: var(--teal-mid); }
-  .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-  .pillar { background: var(--teal-mid); padding: 36px 32px; }
-  .pillar-icon { width: 36px; height: 36px; margin-bottom: 16px; border: 1px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
-  .pillar h3 { font-family: 'Bellefair', serif; font-size: 17px; font-weight: 400; margin-bottom: 10px; }
-  .pillar p { font-size: 13px; color: var(--muted); line-height: 1.75; }
-  .how { background: var(--teal); }
-  .steps { max-width: 680px; }
-  .step { display: flex; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--border); }
-  .step:last-child { border-bottom: none; }
-  .step-num { font-family: 'Bellefair', serif; font-size: 32px; color: var(--gold-border); min-width: 40px; line-height: 1; padding-top: 3px; font-weight: 400; }
-  .step h3 { font-family: 'Bellefair', serif; font-size: 16px; font-weight: 400; margin-bottom: 6px; }
-  .step p { font-size: 13px; color: var(--muted); line-height: 1.75; }
-  .pricing { background: var(--teal-mid); }
-  .billing-toggle { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
-  .tog-lbl { font-size: 14px; color: var(--muted); }
-  .tog-lbl.active { color: var(--white); }
-  .tog-wrap { position: relative; width: 44px; height: 24px; background: var(--teal-light); border-radius: 12px; cursor: pointer; border: 1px solid var(--border); }
-  .tog-wrap input { opacity: 0; width: 0; height: 0; position: absolute; }
-  .tog-thumb { position: absolute; width: 18px; height: 18px; background: var(--gold); border-radius: 50%; top: 2px; left: 2px; transition: transform 0.2s; }
-  .tog-wrap input:checked ~ .tog-thumb { transform: translateX(20px); }
-  .save-pill { font-size: 11px; padding: 3px 10px; background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold-border); border-radius: 20px; letter-spacing: 0.5px; }
-  .plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 44px; }
-  .plan { background: var(--teal); border: 1px solid var(--border); border-radius: 8px; padding: 28px; display: flex; flex-direction: column; }
-  .plan.featured { background: var(--teal-light); border-color: var(--gold); }
-  .plan-badge { display: inline-block; font-size: 11px; letter-spacing: 1px; padding: 4px 12px; background: var(--gold-dim); color: var(--gold); border-radius: 20px; margin-bottom: 12px; border: 1px solid var(--gold-border); text-transform: uppercase; }
-  .plan-name { font-family: 'Bellefair', serif; font-size: 20px; font-weight: 400; margin-bottom: 4px; }
-  .plan-tag { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
-  .plan-price { margin-bottom: 22px; }
-  .plan-price .amt { font-family: 'Bellefair', serif; font-size: 40px; font-weight: 400; }
-  .plan-price .per { font-size: 13px; color: var(--muted); }
-  .plan-price .bill { font-size: 11px; color: var(--muted); margin-top: 4px; min-height: 16px; }
-  .plan-feats { flex: 1; margin-bottom: 22px; }
-  .feat { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: var(--muted); margin-bottom: 8px; line-height: 1.5; }
-  .feat svg { flex-shrink: 0; margin-top: 2px; }
-  .plan-btn { display: block; text-align: center; padding: 11px; border-radius: 4px; font-size: 13px; letter-spacing: 0.5px; text-decoration: none; transition: all 0.2s; border: 1px solid var(--border); color: var(--white); }
-  .plan-btn:hover { border-color: var(--gold); color: var(--gold); }
-  .plan.featured .plan-btn { background: var(--gold); color: var(--teal); border-color: var(--gold); }
-  .plan.featured .plan-btn:hover { background: var(--gold-light); }
-  .addons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
-  .addon { background: var(--teal); border: 1px solid var(--border); border-radius: 8px; padding: 24px; display: flex; flex-direction: column; }
-  .addon-name { font-family: 'Bellefair', serif; font-size: 16px; font-weight: 400; margin-bottom: 6px; }
-  .addon-price { font-family: 'Bellefair', serif; font-size: 26px; font-weight: 400; color: var(--gold); margin-bottom: 8px; }
-  .addon-price span { font-family: 'Abel', sans-serif; font-size: 12px; color: var(--muted); }
-  .addon-desc { font-size: 12px; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 16px; }
-  .addon-btn { display: block; text-align: center; padding: 10px; border: 1px solid var(--border); border-radius: 4px; font-size: 12px; color: var(--white); text-decoration: none; transition: border-color 0.2s, color 0.2s; }
-  .addon-btn:hover { border-color: var(--gold); color: var(--gold); }
-  .trust { background: var(--teal); }
-  .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px; }
-  .trust-item { text-align: center; }
-  .trust-icon { width: 44px; height: 44px; margin: 0 auto 12px; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-  .trust-item h4 { font-family: 'Bellefair', serif; font-size: 15px; font-weight: 400; margin-bottom: 6px; }
-  .trust-item p { font-size: 13px; color: var(--muted); line-height: 1.7; }
-  .cta-band { background: var(--teal-mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 72px 80px; text-align: center; }
-  .cta-band h2 { font-family: 'Bellefair', serif; font-size: clamp(24px, 3vw, 40px); font-weight: 400; margin-bottom: 12px; }
-  .cta-band p { font-size: 16px; color: var(--muted); margin-bottom: 32px; }
-  footer { background: var(--teal); padding: 36px 80px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 20px; }
-  .footer-brand { display: flex; align-items: center; }
-  footer p { font-size: 13px; color: var(--muted); }
-  .footer-links { display: flex; gap: 24px; }
-  .footer-links a { color: var(--muted); font-size: 13px; text-decoration: none; transition: color 0.2s; }
+  .nav-cta {
+    color: var(--teal) !important;
+    background: var(--gold);
+    padding: 10px 18px;
+    border-radius: 999px;
+    letter-spacing: 0.6px;
+  }
+  .nav-cta:hover { background: var(--gold-2); }
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    padding: 148px 0 84px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 78% 28%, rgba(210,171,115,0.13), transparent 30%),
+      linear-gradient(135deg, rgba(5,46,51,1) 0%, rgba(5,46,51,1) 42%, rgba(8,65,74,1) 100%);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 76px 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.5;
+  }
+  .hero-grid { position: relative; display: grid; grid-template-columns: 1.02fr 0.98fr; align-items: center; gap: 62px; }
+  .eyebrow { display: flex; align-items: center; gap: 14px; color: var(--gold); font-size: 12px; letter-spacing: 3.4px; text-transform: uppercase; margin-bottom: 24px; }
+  .eyebrow::before { content: ''; width: 34px; height: 1px; background: var(--gold); }
+  h1, h2, h3 { font-family: 'Bellefair', serif; font-weight: 400; margin: 0; }
+  .hero h1 { font-size: clamp(44px, 5.5vw, 78px); line-height: 0.96; letter-spacing: -1px; max-width: 720px; }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .lead { margin: 26px 0 0; max-width: 610px; color: var(--ink); font-size: 20px; line-height: 1.65; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 36px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 13px 24px; border-radius: 999px; text-decoration: none; font-size: 15px; letter-spacing: 0.5px; transition: transform .18s ease, border-color .18s ease, background .18s ease; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--gold); color: var(--teal); }
+  .btn-primary:hover { background: var(--gold-2); }
+  .btn-outline { border: 1px solid rgba(245,245,245,0.28); color: var(--white); }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; margin-top: 48px; max-width: 760px; }
+  .proof-card { background: rgba(5,46,51,0.7); padding: 22px 20px; }
+  .proof-card b { display: block; font-family: 'Bellefair', serif; color: var(--gold); font-size: 30px; font-weight: 400; line-height: 1; margin-bottom: 8px; }
+  .proof-card span { display: block; color: var(--muted); font-size: 13px; line-height: 1.45; }
+
+  .control-card {
+    position: relative;
+    border: 1px solid var(--line-strong);
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(245,245,245,0.12), rgba(245,245,245,0.035));
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .control-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: radial-gradient(circle at 25% 8%, rgba(210,171,115,0.18), transparent 26%);
+    pointer-events: none;
+  }
+  .screen-top { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+  .dots { display: flex; gap: 7px; }
+  .dots span { width: 8px; height: 8px; border-radius: 50%; background: rgba(245,245,245,0.26); }
+  .screen-title { color: var(--gold); font-size: 13px; letter-spacing: 1.8px; text-transform: uppercase; }
+  .screen-body { position: relative; padding: 24px; }
+  .aircraft-id { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
+  .aircraft-id h3 { font-size: 30px; line-height: 1; }
+  .aircraft-id p { color: var(--muted); margin: 8px 0 0; font-size: 14px; }
+  .status-pill { color: var(--teal); background: var(--gold); border-radius: 999px; padding: 8px 12px; font-size: 12px; white-space: nowrap; }
+  .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+  .metric { border: 1px solid var(--line); border-radius: 14px; padding: 16px 14px; background: rgba(5,46,51,0.48); }
+  .metric span { color: var(--dim); font-size: 12px; }
+  .metric b { display: block; font-family: 'Bellefair', serif; font-size: 28px; color: var(--white); font-weight: 400; margin-top: 6px; }
+  .ledger { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: rgba(5,46,51,0.45); }
+  .ledger-row { display: grid; grid-template-columns: 1.2fr .7fr .7fr; gap: 12px; padding: 12px 14px; border-bottom: 1px solid rgba(210,171,115,0.15); font-size: 13px; color: var(--muted); }
+  .ledger-row:first-child { color: var(--gold); text-transform: uppercase; letter-spacing: 1.4px; font-size: 11px; }
+  .ledger-row:last-child { border-bottom: 0; }
+  .flag { color: var(--white); }
+  .warn { color: var(--gold-2); }
+
+  section { padding: 92px 0; }
+  .section-head { max-width: 730px; margin-bottom: 46px; }
+  .label { color: var(--gold); font-size: 12px; letter-spacing: 3.4px; text-transform: uppercase; margin-bottom: 14px; }
+  .section-head h2, .split-copy h2, .cta h2 { font-size: clamp(36px, 4vw, 58px); line-height: 1.02; letter-spacing: -0.4px; }
+  .section-head p, .split-copy p { color: var(--muted); font-size: 18px; line-height: 1.7; margin: 20px 0 0; }
+
+  .problem { background: var(--white); color: var(--teal); }
+  .problem .label { color: var(--teal-4); }
+  .problem .section-head p { color: rgba(5,46,51,0.72); }
+  .risk-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .risk { border: 1px solid rgba(5,46,51,0.16); border-radius: 20px; padding: 28px; background: #fff; min-height: 228px; }
+  .risk-num { color: var(--gold); font-family: 'Bellefair', serif; font-size: 44px; line-height: 1; margin-bottom: 20px; }
+  .risk h3 { font-size: 24px; color: var(--teal); margin-bottom: 12px; }
+  .risk p { color: rgba(5,46,51,0.7); margin: 0; font-size: 15px; }
+
+  .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 64px; align-items: center; }
+  .quote-panel { border: 1px solid var(--line); border-radius: 28px; padding: 38px; background: var(--panel); box-shadow: var(--shadow); }
+  .quote-panel blockquote { margin: 0; font-family: 'Bellefair', serif; font-size: clamp(32px, 3.2vw, 48px); line-height: 1.08; color: var(--white); }
+  .quote-panel blockquote span { color: var(--gold); }
+  .quote-panel p { color: var(--muted); margin: 24px 0 0; font-size: 16px; }
+  .cred-list { display: grid; gap: 14px; margin-top: 30px; }
+  .cred { display: flex; gap: 14px; align-items: flex-start; border: 1px solid var(--line); background: rgba(245,245,245,0.04); border-radius: 16px; padding: 16px; }
+  .check { width: 22px; height: 22px; border-radius: 50%; background: rgba(210,171,115,0.15); color: var(--gold); display: inline-flex; align-items: center; justify-content: center; flex: 0 0 22px; }
+  .cred b { display: block; font-weight: 400; color: var(--white); font-size: 16px; }
+  .cred span { display: block; color: var(--muted); font-size: 14px; margin-top: 3px; }
+
+  .system { background: var(--teal-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .system-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .system-card { border: 1px solid var(--line); border-radius: 22px; padding: 28px; background: rgba(5,46,51,0.42); min-height: 278px; display: flex; flex-direction: column; }
+  .system-card h3 { font-size: 28px; margin-bottom: 14px; }
+  .system-card p { color: var(--muted); font-size: 15px; margin: 0 0 24px; }
+  .mini-list { margin-top: auto; display: grid; gap: 9px; }
+  .mini-list span { color: var(--ink); border-top: 1px solid rgba(210,171,115,0.14); padding-top: 9px; font-size: 14px; }
+
+  .workflow { background: var(--white); color: var(--teal); }
+  .workflow .label { color: var(--teal-4); }
+  .workflow .section-head p { color: rgba(5,46,51,0.72); }
+  .steps { counter-reset: step; display: grid; gap: 12px; }
+  .step { counter-increment: step; display: grid; grid-template-columns: 110px 1fr 0.8fr; gap: 28px; align-items: center; border: 1px solid rgba(5,46,51,0.13); border-radius: 22px; padding: 24px; background: #fff; }
+  .step::before { content: '0' counter(step); font-family: 'Bellefair', serif; font-size: 46px; color: var(--gold); line-height: 1; }
+  .step h3 { font-size: 28px; }
+  .step p { margin: 6px 0 0; color: rgba(5,46,51,0.7); }
+  .step-tag { justify-self: end; color: var(--teal); background: rgba(210,171,115,0.16); border: 1px solid rgba(210,171,115,0.34); border-radius: 999px; padding: 9px 14px; font-size: 13px; }
+
+  .engagement { background: var(--teal); }
+  .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .plan { border: 1px solid var(--line); border-radius: 24px; background: var(--panel); padding: 30px; position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 440px; }
+  .plan.featured { background: linear-gradient(180deg, rgba(210,171,115,0.13), rgba(245,245,245,0.045)); border-color: var(--gold); }
+  .badge { display: inline-block; width: fit-content; color: var(--gold); border: 1px solid var(--line-strong); border-radius: 999px; padding: 6px 12px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 18px; }
+  .plan h3 { font-size: 30px; margin-bottom: 8px; }
+  .plan .who { color: var(--muted); font-size: 15px; margin: 0 0 22px; }
+  .price { font-family: 'Bellefair', serif; font-size: 42px; color: var(--gold); margin: 0 0 4px; }
+  .price-note { color: var(--dim); font-size: 13px; margin-bottom: 22px; }
+  .plan ul { list-style: none; padding: 0; margin: 0 0 28px; display: grid; gap: 11px; }
+  .plan li { color: var(--ink); font-size: 15px; }
+  .plan li::before { content: '—'; color: var(--gold); margin-right: 8px; }
+  .plan .btn { margin-top: auto; width: 100%; }
+
+  .data-moat { background: var(--teal-2); border-top: 1px solid var(--line); }
+  .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: stretch; }
+  .data-card { border: 1px solid var(--line); border-radius: 24px; background: var(--panel); padding: 32px; }
+  .data-card h3 { font-size: 30px; margin-bottom: 14px; }
+  .data-card p { color: var(--muted); margin: 0; font-size: 16px; line-height: 1.7; }
+
+  .cta { text-align: center; padding: 86px 0 94px; background: linear-gradient(180deg, var(--teal-2), var(--teal)); }
+  .cta p { color: var(--muted); font-size: 18px; max-width: 650px; margin: 18px auto 32px; }
+  footer { border-top: 1px solid var(--line); padding: 34px 0; background: var(--teal); }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .footer-inner p { margin: 0; color: var(--muted); font-size: 13px; }
+  .footer-links { display: flex; gap: 22px; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 13px; }
   .footer-links a:hover { color: var(--gold); }
-  @media (max-width: 768px) {
-    nav { padding: 14px 24px; }
-    .nav-links { display: none; }
-    .hero { padding: 90px 24px 48px; }
-    section { padding: 64px 24px; }
-    .hero-stats { gap: 28px; }
-    .cta-band { padding: 48px 24px; }
-    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+
+  @media (max-width: 980px) {
+    .nav-links a:not(.nav-cta) { display: none; }
+    .hero-grid, .split, .data-grid { grid-template-columns: 1fr; }
+    .control-card { max-width: 680px; }
+    .risk-grid, .system-grid, .plan-grid { grid-template-columns: 1fr 1fr; }
+    .step { grid-template-columns: 76px 1fr; }
+    .step-tag { grid-column: 2; justify-self: start; }
+  }
+  @media (max-width: 680px) {
+    .wrap { width: min(100% - 30px, 1180px); }
+    .nav { height: 68px; }
+    .nav-inner { height: 68px; }
+    .brand img { height: 34px; }
+    .brand-mark, .brand-text { display: none; }
+    .nav-cta { padding: 9px 13px; font-size: 13px; }
+    .hero { padding: 112px 0 58px; }
+    .hero-proof, .metric-grid, .risk-grid, .system-grid, .plan-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: clamp(42px, 14vw, 60px); }
+    .lead { font-size: 18px; }
+    section { padding: 68px 0; }
+    .screen-body { padding: 18px; }
+    .ledger-row { grid-template-columns: 1fr; gap: 3px; }
+    .step { grid-template-columns: 1fr; gap: 10px; }
+    .step-tag { grid-column: auto; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
   }
 </style>
 </head>
 <body>
-
-<nav>
-  <a href="/" class="nav-logo">
-    <img src="Transparent_Logo.svg" alt="Aero Talent Pro" style="height:38px;">
-  </a>
-  <div class="nav-links">
-    <a href="#how">How it works</a>
-    <a href="#pricing">Pricing</a>
-    <a href="mailto:geoffrey@liberatedblade.com">Contact</a>
-    <a href="#pricing" class="nav-cta">Get started</a>
-  </div>
-</nav>
-
-<section class="hero">
-  <div class="eyebrow">ATM Platform — Aircraft Transition Manager</div>
-  <h1>Transaction integrity<br>for every <em>aircraft transition</em></h1>
-  <p class="hero-sub">The only managed platform where lessors, buyers, and inspectors share a single source of truth — from pre-purchase through re-induction.</p>
-  <div class="hero-actions">
-    <a href="#pricing" class="btn-primary">View pricing</a>
-    <a href="mailto:geoffrey@liberatedblade.com?subject=ATM Platform Demo Request" class="btn-ghost">Request a demo</a>
-  </div>
-  <div class="hero-stats">
-    <div><span class="stat-num">17</span><div class="stat-label">Sheets per transaction workspace</div></div>
-    <div><span class="stat-num">6</span><div class="stat-label">Transition phases covered</div></div>
-    <div><span class="stat-num">Part 145</span><div class="stat-label">FAA / EASA / TCCA certified operator</div></div>
-  </div>
-</section>
-
-<section class="pillars">
-  <div class="sec-label">Why ATM</div>
-  <h2 class="sec-title">Built for how transitions<br>actually work</h2>
-  <p class="sec-sub">Every aircraft transition involves multiple parties, overlapping documents, and high-stakes findings. ATM gives everyone a shared workspace — operated by a trusted neutral partner.</p>
-  <div class="pillars-grid">
-    <div class="pillar"><div class="pillar-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="6" height="6" rx="1" stroke="#D2AB73" stroke-width="1.3"/><rect x="10" y="2" width="6" height="6" rx="1" stroke="#D2AB73" stroke-width="1.3"/><rect x="2" y="10" width="6" height="6" rx="1" stroke="#D2AB73" stroke-width="1.3"/><rect x="10" y="10" width="6" height="6" rx="1" stroke="#D2AB73" stroke-width="1.3"/></svg></div><h3>One workspace, all parties</h3><p>Lessor, buyer, and inspector work from a single source of truth. Role-based access means everyone sees exactly what they need — nothing more.</p></div>
-    <div class="pillar"><div class="pillar-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="#D2AB73" stroke-width="1.3"/><path d="M9 6v4l2.5 2" stroke="#D2AB73" stroke-width="1.3" stroke-linecap="round"/></svg></div><h3>Managed by Aerofield</h3><p>You don't run the platform — we do. Every transaction is provisioned, operated, and reported by our Part 145 certified team.</p></div>
-    <div class="pillar"><div class="pillar-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9l4 4 8-8" stroke="#D2AB73" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>PDF reports on demand</h3><p>Branded inspection reports generated directly from live transaction data — no reformatting, no manual assembly.</p></div>
-    <div class="pillar"><div class="pillar-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="1.5" stroke="#D2AB73" stroke-width="1.3"/><path d="M6 8h6M6 11h4" stroke="#D2AB73" stroke-width="1.2" stroke-linecap="round"/></svg></div><h3>Full lifecycle coverage</h3><p>Pre-purchase through re-induction. ADs, STCs, engine records, landing gear, open items, conformity — all tracked.</p></div>
-  </div>
-</section>
-
-<section class="how" id="how">
-  <div class="sec-label">Process</div>
-  <h2 class="sec-title">How a transaction works</h2>
-  <p class="sec-sub">From the moment a deal opens to final re-induction, ATM tracks every finding, document, and sign-off.</p>
-  <div class="steps">
-    <div class="step"><div class="step-num">01</div><div><h3>Transaction workspace provisioned</h3><p>Aerofield opens a dedicated 17-sheet workspace for your aircraft. Identity, engine records, landing gear, and AD status pre-loaded from available source documents.</p></div></div>
-    <div class="step"><div class="step-num">02</div><div><h3>Physical inspection & records review</h3><p>Our inspector conducts on-site inspection and records review. Findings entered in real time — visible to all authorized parties immediately.</p></div></div>
-    <div class="step"><div class="step-num">03</div><div><h3>Open items tracked to resolution</h3><p>Every finding logged in the Open Items Ledger with priority, responsibility, and target resolution date. Automated alerts flag items past due.</p></div></div>
-    <div class="step"><div class="step-num">04</div><div><h3>Reports generated & signed off</h3><p>Branded PDF inspection reports generated directly from the live workspace. Full audit trail maintained throughout.</p></div></div>
-    <div class="step"><div class="step-num">05</div><div><h3>Phase tracker closes the deal</h3><p>GO / GO WITH CONDITIONS / NO-GO status confirmed across all six transition phases. Every stakeholder sees the same recommendation at the same time.</p></div></div>
-  </div>
-</section>
-
-<section class="pricing" id="pricing">
-  <div class="sec-label">Pricing</div>
-  <h2 class="sec-title">Platform plans</h2>
-  <p class="sec-sub">Subscription pricing for active platform access. All plans include the full 17-sheet ATM workspace per transaction.</p>
-  <div class="billing-toggle">
-    <span class="tog-lbl active" id="lbl-mo">Monthly</span>
-    <label class="tog-wrap"><input type="checkbox" id="btog" onchange="swBill()"><span class="tog-thumb"></span></label>
-    <span class="tog-lbl" id="lbl-yr">Annual</span>
-    <span class="save-pill">Save 17%</span>
-  </div>
-  <div class="plans-grid">
-    <div class="plan">
-      <div class="plan-name">Starter</div><div class="plan-tag">MROs entering transition work</div>
-      <div class="plan-price"><span class="amt" id="p-s">$750</span><span class="per">/mo</span><div class="bill" id="pb-s"></div></div>
-      <div class="plan-feats">
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>Up to 3 active transactions</div>
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>5 PDF inspection reports/month</div>
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>Standard 17-sheet ATM template</div>
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>Phase tracker & open items ledger</div>
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>Email support</div>
+  <nav class="nav" aria-label="Primary navigation">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top" aria-label="Aerofield Transition Manager home">
+        <img src="Transparent_Logo.svg" alt="Aero Talent Pro" />
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text"><span>ATM Platform</span><span>Aerofield Transition Manager</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#problem">Why it exists</a>
+        <a href="#system">System</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#engagement">Engagement</a>
+        <a href="mailto:geoffrey@liberatedblade.com?subject=ATM Platform Discussion" class="nav-cta">Request briefing</a>
       </div>
-      <a id="btn-s" href="https://buy.stripe.com/test_14A8wQ7tm5Ef3ErgY587K00" class="plan-btn">Get started</a>
     </div>
-    <div class="plan featured">
-      <div class="plan-badge">Most popular</div>
-      <div class="plan-name">Professional</div><div class="plan-tag">Lessors & buyers with active fleets</div>
-      <div class="plan-price"><span class="amt" id="p-p">$1,500</span><span class="per">/mo</span><div class="bill" id="pb-p"></div></div>
-      <div class="plan-feats">
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>Up to 10 active transactions</div>
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>Unlimited PDF inspection reports</div>
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>Role-based Dynamic View access</div>
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>Custom branding on all reports</div>
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>Bridge open-item automations</div>
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>Priority support</div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Aircraft Transition Manager</div>
+          <h1>Aircraft transitions fail in the gaps between parties. <em>ATM closes the gaps.</em></h1>
+          <p class="lead">A neutral, operator-led control system for lease transitions, pre-purchase inspections, conformity work, open items, records review, and re-induction readiness.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="mailto:geoffrey@liberatedblade.com?subject=ATM Platform Briefing Request">Request a private briefing</a>
+            <a class="btn btn-outline" href="#system">See how it works</a>
+          </div>
+          <div class="hero-proof" aria-label="Platform highlights">
+            <div class="proof-card"><b>17</b><span>Structured sheets per aircraft transaction workspace</span></div>
+            <div class="proof-card"><b>6</b><span>Transition phases tracked from pre-purchase through re-induction</span></div>
+            <div class="proof-card"><b>1</b><span>Shared source of truth for lessor, buyer, inspector, and MRO teams</span></div>
+          </div>
+        </div>
+
+        <aside class="control-card" aria-label="ATM dashboard preview">
+          <div class="screen-top">
+            <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="screen-title">Transition Control View</div>
+          </div>
+          <div class="screen-body">
+            <div class="aircraft-id">
+              <div>
+                <h3>MSN 5517</h3>
+                <p>Airbus A320-232 · Lease Transition Workspace</p>
+              </div>
+              <span class="status-pill">GO WITH CONDITIONS</span>
+            </div>
+            <div class="metric-grid">
+              <div class="metric"><span>Open items</span><b>14</b></div>
+              <div class="metric"><span>Critical flags</span><b>03</b></div>
+              <div class="metric"><span>Phase status</span><b>72%</b></div>
+            </div>
+            <div class="ledger">
+              <div class="ledger-row"><span>Finding</span><span>Owner</span><span>Status</span></div>
+              <div class="ledger-row"><span class="flag">Records gap: engine LLP trace</span><span>Lessor</span><span class="warn">Due</span></div>
+              <div class="ledger-row"><span class="flag">Cabin discrepancy review</span><span>Inspector</span><span>Open</span></div>
+              <div class="ledger-row"><span class="flag">Conformity package sign-off</span><span>MRO</span><span>Pending</span></div>
+            </div>
+          </div>
+        </aside>
       </div>
-      <a id="btn-p" href="https://buy.stripe.com/test_dRmdRa6p19Uv4IvcHP87K02" class="plan-btn">Get started</a>
-    </div>
-    <div class="plan">
-      <div class="plan-name">Enterprise</div><div class="plan-tag">Fleet managers & institutional lessors</div>
-      <div class="plan-price"><span class="amt">Custom</span><div class="bill">Annual contracts · volume pricing</div></div>
-      <div class="plan-feats">
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>Unlimited active transactions</div>
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>Full managed service option</div>
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>Dedicated Aerofield manager</div>
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>Benchmarking intelligence access</div>
-        <div class="feat"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#D2AB73" stroke-width="1"/><path d="M4 6.5l2 2 3-3" stroke="#D2AB73" stroke-width="1.1" stroke-linecap="round"/></svg>SLA guarantee</div>
+    </section>
+
+    <section class="problem" id="problem">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="label">Why it exists</div>
+          <h2>Every aircraft transition has the same hidden risk: no one is working from the same truth.</h2>
+          <p>Findings live in emails. Records questions live in side channels. Inspection notes become PDFs too early. Decisions get made without a complete view of technical, records, conformity, and commercial exposure.</p>
+        </div>
+        <div class="risk-grid">
+          <article class="risk"><div class="risk-num">01</div><h3>Fragmented findings</h3><p>Physical inspection, records review, conformity, and open items are separated when they should be connected.</p></article>
+          <article class="risk"><div class="risk-num">02</div><h3>Unclear ownership</h3><p>Issues move across lessor, buyer, inspector, and MRO teams without a controlled assignment path.</p></article>
+          <article class="risk"><div class="risk-num">03</div><h3>Late surprises</h3><p>Material exposure often appears after the inspection, when the deal clock is already moving.</p></article>
+          <article class="risk"><div class="risk-num">04</div><h3>Weak audit trail</h3><p>Static reports capture a moment. ATM preserves the decision path that got the aircraft there.</p></article>
+        </div>
       </div>
-      <a href="mailto:geoffrey@liberatedblade.com?subject=ATM Enterprise Inquiry" class="plan-btn">Contact us</a>
+    </section>
+
+    <section>
+      <div class="wrap split">
+        <div class="quote-panel">
+          <blockquote>Not another inspection tool. <span>A transaction control layer.</span></blockquote>
+          <p>ATM is built to sit between the parties during a live aircraft transition, keeping the work structured, visible, and accountable until the aircraft is ready for the next phase.</p>
+        </div>
+        <div class="split-copy">
+          <div class="label">Operator-led</div>
+          <h2>Built from real transition work, not software theory.</h2>
+          <p>The platform is designed around narrowbody aircraft transition realities: physical inspection, technical records, AD/STC status, engine/APU/landing gear records, open items, FAA conformity, phase readiness, and final report generation.</p>
+          <div class="cred-list">
+            <div class="cred"><span class="check">✓</span><div><b>Founding partner model</b><span>Aerofield Services serves as launch customer, prototype model, and domain expertise contributor.</span></div></div>
+            <div class="cred"><span class="check">✓</span><div><b>Independent IP ownership</b><span>ATM is proprietary to Liberated Blade LLC and licensed for use without transferring platform ownership.</span></div></div>
+            <div class="cred"><span class="check">✓</span><div><b>Designed for transaction integrity</b><span>Every sheet, report, and permission layer is structured around defensible deal execution.</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="system" id="system">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="label">The system</div>
+          <h2>One aircraft. One workspace. Every transition signal connected.</h2>
+          <p>ATM gives each aircraft transaction a structured workspace with controlled access, live status, open item accountability, and reportable outputs.</p>
+        </div>
+        <div class="system-grid">
+          <article class="system-card">
+            <h3>Aircraft workspace</h3>
+            <p>Each tail/MSN receives a dedicated transaction workspace with aircraft identity, physical inspection, records, systems, phase status, and dashboard views.</p>
+            <div class="mini-list"><span>Aircraft Identity</span><span>Engines · APU · Landing Gear</span><span>ADs · STCs · Records Review</span></div>
+          </article>
+          <article class="system-card">
+            <h3>Open item control</h3>
+            <p>Findings are not trapped in a report. They remain live, owned, prioritized, and tracked until resolved or accepted as a condition.</p>
+            <div class="mini-list"><span>Owner assignment</span><span>Priority and target dates</span><span>Resolution history</span></div>
+          </article>
+          <article class="system-card">
+            <h3>Report output</h3>
+            <p>Branded reports are generated from structured source data, reducing manual assembly and preserving the evidence behind the recommendation.</p>
+            <div class="mini-list"><span>Executive summary</span><span>Finding tables</span><span>Sign-off and phase readiness</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="workflow" id="workflow">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="label">Workflow</div>
+          <h2>From first document load to final transition recommendation.</h2>
+          <p>ATM is not meant to be browsed casually. It is meant to run the work while the aircraft transaction is active.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><div><h3>Workspace provisioned</h3><p>Aircraft identity and available source data are loaded into a clean transaction structure.</p></div><span class="step-tag">Transaction setup</span></div>
+          <div class="step"><div><h3>Inspection and records review</h3><p>Physical condition, technical records, AD/STC status, engine/APU/gear data, and conformity items are captured in structured sheets.</p></div><span class="step-tag">Evidence capture</span></div>
+          <div class="step"><div><h3>Open items controlled</h3><p>Every issue receives status, owner, priority, target date, and resolution path.</p></div><span class="step-tag">Accountability</span></div>
+          <div class="step"><div><h3>Phase decision made</h3><p>The transaction moves toward GO, GO WITH CONDITIONS, or NO-GO using live data rather than fragmented email traffic.</p></div><span class="step-tag">Decision support</span></div>
+          <div class="step"><div><h3>Report generated</h3><p>Final outputs are produced directly from the controlled workspace with a defensible audit trail.</p></div><span class="step-tag">Client deliverable</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="engagement" id="engagement">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="label">Engagement models</div>
+          <h2>Structured for live transactions, not casual subscriptions.</h2>
+          <p>Pricing should reflect the work: active aircraft, transaction complexity, report outputs, and the level of managed support required.</p>
+        </div>
+        <div class="plan-grid">
+          <article class="plan">
+            <span class="badge">Founding partner</span>
+            <h3>Prototype Deployment</h3>
+            <p class="who">For the initial launch customer and founding operator model.</p>
+            <p class="price">Custom</p>
+            <p class="price-note">12-month pricing lock available</p>
+            <ul>
+              <li>Configured template workspace</li>
+              <li>First live transaction support</li>
+              <li>Document Builder report setup</li>
+              <li>Role-based permission model</li>
+            </ul>
+            <a class="btn btn-outline" href="mailto:geoffrey@liberatedblade.com?subject=ATM Founding Partner Discussion">Discuss founding terms</a>
+          </article>
+          <article class="plan featured">
+            <span class="badge">Primary model</span>
+            <h3>Managed Transaction</h3>
+            <p class="who">For lessors, buyers, inspectors, and MRO teams running active lease transitions.</p>
+            <p class="price">Per aircraft</p>
+            <p class="price-note">Setup + active workspace + report outputs</p>
+            <ul>
+              <li>Dedicated aircraft workspace</li>
+              <li>Open Items Ledger and Phase Tracker</li>
+              <li>Controlled stakeholder access</li>
+              <li>Branded PDF inspection package</li>
+              <li>Optional dashboard and automation layer</li>
+            </ul>
+            <a class="btn btn-primary" href="mailto:geoffrey@liberatedblade.com?subject=ATM Managed Transaction Briefing">Request briefing</a>
+          </article>
+          <article class="plan">
+            <span class="badge">Scale option</span>
+            <h3>Fleet Program</h3>
+            <p class="who">For institutional lessors, repeat buyers, and operators managing multiple aircraft transitions.</p>
+            <p class="price">Enterprise</p>
+            <p class="price-note">Volume pricing and annual support model</p>
+            <ul>
+              <li>Multi-aircraft workspace structure</li>
+              <li>Portfolio dashboarding</li>
+              <li>Repeatable transaction templates</li>
+              <li>Benchmarking-ready data capture</li>
+            </ul>
+            <a class="btn btn-outline" href="mailto:geoffrey@liberatedblade.com?subject=ATM Fleet Program Inquiry">Explore fleet program</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="data-moat">
+      <div class="wrap data-grid">
+        <div class="data-card">
+          <div class="label">Long-term defensibility</div>
+          <h3>Every transaction improves the intelligence layer.</h3>
+          <p>ATM is structured to capture consistent transition data from day one: findings, records gaps, phase readiness, recurring exposure patterns, and resolution timelines. Over time, that dataset becomes the foundation for benchmarking intelligence.</p>
+        </div>
+        <div class="data-card">
+          <div class="label">Market focus</div>
+          <h3>Narrowbody aircraft first.</h3>
+          <p>The initial system is built around commercial narrowbody transition workflows where repeatable structure matters: A320 family, 737 family, lease returns, pre-purchase inspections, conformity, records review, and re-induction support.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap">
+        <div class="label">Private launch</div>
+        <h2>Ready to run the first controlled transaction?</h2>
+        <p>ATM is being developed for founding partner deployment before broader market release. Request a private briefing to review the workspace, report output, and engagement structure.</p>
+        <a class="btn btn-primary" href="mailto:geoffrey@liberatedblade.com?subject=ATM Private Launch Briefing">Request private briefing</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <p>© <span id="yr"></span> Liberated Blade LLC. Aerofield Transition Manager is proprietary intellectual property of Liberated Blade LLC.</p>
+      <div class="footer-links">
+        <a href="mailto:geoffrey@liberatedblade.com">Contact</a>
+        <a href="https://aerofieldservices.com" target="_blank" rel="noopener">Aerofield Services</a>
+        <a href="https://aerotalentpro.com" target="_blank" rel="noopener">AeroTalentPro</a>
+      </div>
     </div>
-  </div>
-  <div class="sec-label" style="margin-top:44px;margin-bottom:16px;">One-time products & add-ons</div>
-  <div class="addons-grid">
-    <div class="addon"><div class="addon-name">Platform Setup & Onboarding</div><div class="addon-price">$10,000</div><div class="addon-desc">Complete workspace configuration, first transaction loaded by Aerofield, 4-hour staff training, 30-day hypercare support.</div><a href="https://buy.stripe.com/test_7sY7sMdRK5EfcaXgY587K04" class="addon-btn">Add to order</a></div>
-    <div class="addon"><div class="addon-name">ATM Template License</div><div class="addon-price">$2,500</div><div class="addon-desc">Full 17-sheet Smartsheet workspace template with implementation guide. DIY setup — no managed service included.</div><a href="https://buy.stripe.com/test_3cIcN68xq5Ef4Iv7nv87K05" class="addon-btn">Buy license</a></div>
-    <div class="addon"><div class="addon-name">Transaction Pack — 5/year</div><div class="addon-price">$10,000 <span>/yr</span></div><div class="addon-desc">5 aircraft workspace activations per year. PDF reports per transaction included. Annual renewal.</div><a href="https://buy.stripe.com/test_dRm8wQfZSaYza2P5fn87K06" class="addon-btn">Buy pack</a></div>
-    <div class="addon"><div class="addon-name">Transaction Pack — 10/year</div><div class="addon-price">$18,000 <span>/yr</span></div><div class="addon-desc">10 aircraft workspace activations per year. Best value for active lessors. Annual renewal.</div><a href="https://buy.stripe.com/test_bJe28s6pifePb6T8rz87K07" class="addon-btn">Buy pack</a></div>
-  </div>
-</section>
-
-<section class="trust">
-  <div class="sec-label">Credentials</div>
-  <h2 class="sec-title">Operated by Aerofield Services</h2>
-  <p class="sec-sub">ATM is built and operated by a Part 145 certified repair station — not a software company. Every transaction runs through a team that has done the work.</p>
-  <div class="trust-grid">
-    <div class="trust-item"><div class="trust-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l2.2 4.5 5 .7-3.6 3.5.85 5L10 13.25l-4.45 2.45.85-5L3 7.2l5-.7L10 2z" stroke="#D2AB73" stroke-width="1.3" stroke-linejoin="round"/></svg></div><h4>FAA Part 145 Certified</h4><p>Full repair station certification — FAA, EASA, TCCA, and CAACI.</p></div>
-    <div class="trust-item"><div class="trust-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="#D2AB73" stroke-width="1.3"/><path d="M7 10l2 2 4-4" stroke="#D2AB73" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h4>Neutral Operator</h4><p>Aerofield operates as a trusted neutral — not representing lessor or buyer.</p></div>
-    <div class="trust-item"><div class="trust-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3v14M3 10h14" stroke="#D2AB73" stroke-width="1.3" stroke-linecap="round"/></svg></div><h4>Narrowbody Specialists</h4><p>A320 family and 737 family — the workhorses of commercial aviation transitions.</p></div>
-    <div class="trust-item"><div class="trust-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#D2AB73" stroke-width="1.3"/><path d="M10 6v5l3 2.5" stroke="#D2AB73" stroke-width="1.3" stroke-linecap="round"/></svg></div><h4>Aurora, CO Based</h4><p>Domestic and international transitions. On-site inspection capability nationwide.</p></div>
-  </div>
-</section>
-
-<div class="cta-band">
-  <h2>Ready to run your first transaction?</h2>
-  <p>Get set up in 48 hours. Your first workspace is live before the ink dries.</p>
-  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-    <a href="#pricing" class="btn-primary">View pricing</a>
-    <a href="mailto:geoffrey@liberatedblade.com?subject=ATM Demo Request" class="btn-ghost">Talk to the team</a>
-  </div>
-</div>
-
-<footer>
-  <div class="footer-brand">
-    <img src="Transparent_Logo.svg" alt="Aero Talent Pro" style="height:30px;">
-  </div>
-  <p>ATM Platform is operated by Aerofield Services · Aurora, CO</p>
-  <div class="footer-links">
-    <a href="mailto:geoffrey@liberatedblade.com">Contact</a>
-    <a href="https://aerofieldservices.com" target="_blank">Aerofield Services</a>
-  </div>
-</footer>
+  </footer>
 
 <script>
-var isAnn=false;
-var U={sm:'https://buy.stripe.com/test_14A8wQ7tm5Ef3ErgY587K00',sa:'https://buy.stripe.com/test_00w8wQdRK4Aba2P9vD87K01',pm:'https://buy.stripe.com/test_dRmdRa6p19Uv4IvcHP87K02',pa:'https://buy.stripe.com/test_dRm5kE14YaYzfn9bDL87K03'};
-function swBill(){
-  isAnn=document.getElementById('btog').checked;
-  document.getElementById('lbl-mo').classList.toggle('active',!isAnn);
-  document.getElementById('lbl-yr').classList.toggle('active',isAnn);
-  document.getElementById('p-s').textContent=isAnn?'$625':'$750';
-  document.getElementById('pb-s').textContent=isAnn?'Billed $7,500/year':'';
-  document.getElementById('p-p').textContent=isAnn?'$1,250':'$1,500';
-  document.getElementById('pb-p').textContent=isAnn?'Billed $15,000/year':'';
-  document.getElementById('btn-s').href=isAnn?U.sa:U.sm;
-  document.getElementById('btn-p').href=isAnn?U.pa:U.pm;
-}
+  document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
