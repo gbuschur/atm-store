@@ -24,23 +24,21 @@
   .wrap{width:min(1160px,calc(100% - 48px));margin:0 auto;}
 
   /* NAV */
-  .nav{position:fixed;inset:0 0 auto 0;height:72px;z-index:50;background:rgba(5,46,51,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);}
-  .nav-inner{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
-  .brand{display:flex;align-items:center;gap:14px;text-decoration:none;}
-  .brand img{height:40px;width:auto;}
-  .brand-div{width:1px;height:28px;background:var(--line);}
-  .brand-tag{font-size:11px;letter-spacing:2.8px;color:var(--gold);text-transform:uppercase;}
+  .nav{position:fixed;inset:0 0 auto 0;height:80px;z-index:50;background:rgba(5,46,51,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);}
+  .nav-inner{height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+  .brand{display:flex;align-items:center;text-decoration:none;}
+  .brand img{height:58px;width:auto;}
   .nav-links{display:flex;align-items:center;gap:24px;}
   .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;letter-spacing:0.3px;transition:color .15s;}
   .nav-links a:hover{color:var(--white);}
-  .nav-cta{color:var(--teal)!important;background:var(--gold);padding:9px 18px;border-radius:999px;font-size:14px;transition:background .15s!important;}
+  .nav-cta{color:var(--teal)!important;background:var(--gold);padding:10px 20px;border-radius:999px;font-size:14px;transition:background .15s!important;}
   .nav-cta:hover{background:var(--gold-2)!important;}
 
   /* HERO */
-  .hero{position:relative;padding:132px 0 72px;overflow:hidden;
+  .hero{position:relative;padding:136px 0 72px;overflow:hidden;
     background:radial-gradient(circle at 76% 24%,rgba(210,171,115,0.11),transparent 32%),
               linear-gradient(140deg,#052E33 0%,#052E33 40%,#08414A 100%);}
-  .hero::after{content:'';position:absolute;top:72px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 40%,transparent 100%);opacity:0.4;}
+  .hero::after{content:'';position:absolute;top:80px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 40%,transparent);opacity:0.4;}
   .hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:56px;position:relative;}
   .eyebrow{display:flex;align-items:center;gap:13px;color:var(--gold);font-size:11px;letter-spacing:3.2px;text-transform:uppercase;margin-bottom:22px;}
   .eyebrow::before{content:'';width:30px;height:1px;background:var(--gold);flex-shrink:0;}
@@ -48,7 +46,7 @@
   .hero h1 em{color:var(--gold);font-style:normal;}
   .hero-lead{margin:22px 0 0;max-width:540px;color:var(--ink);font-size:17px;line-height:1.7;}
   .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;}
-  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 22px;border-radius:999px;text-decoration:none;font-family:'Abel',sans-serif;font-size:14px;letter-spacing:0.4px;transition:transform .16s,background .16s,border-color .16s;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 22px;border-radius:999px;text-decoration:none;font-family:'Abel',sans-serif;font-size:14px;letter-spacing:0.4px;transition:transform .16s,background .16s,border-color .16s,color .16s;}
   .btn:hover{transform:translateY(-1px);}
   .btn-gold{background:var(--gold);color:var(--teal);}
   .btn-gold:hover{background:var(--gold-2);}
@@ -79,8 +77,7 @@
   .l-row{display:grid;grid-template-columns:1.3fr .65fr .65fr;gap:10px;padding:10px 12px;border-bottom:1px solid rgba(210,171,115,0.12);font-size:12px;color:var(--muted);}
   .l-row:first-child{color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;font-size:10px;}
   .l-row:last-child{border-bottom:0;}
-  .l-flag{color:var(--white);}
-  .l-warn{color:var(--gold-2);}
+  .l-flag{color:var(--white);} .l-warn{color:var(--gold-2);}
 
   /* SECTIONS */
   section{padding:84px 0;}
@@ -134,23 +131,39 @@
   .step p{margin:0;color:rgba(5,46,51,0.68);font-size:14px;line-height:1.6;}
   .step-tag{background:rgba(210,171,115,0.14);border:1px solid rgba(210,171,115,0.3);color:var(--teal);border-radius:999px;padding:8px 13px;font-size:12px;white-space:nowrap;}
 
-  /* ENGAGEMENT */
-  .engagement-sec{background:var(--teal);}
-  .plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  /* PRICING */
+  .pricing-sec{background:var(--teal-2);border-top:1px solid var(--line);}
+  .billing-toggle{display:flex;align-items:center;gap:14px;margin-bottom:40px;}
+  .tog-lbl{font-size:14px;color:var(--muted);}
+  .tog-lbl.on{color:var(--white);}
+  .tog-wrap{position:relative;width:44px;height:24px;background:var(--teal-3);border-radius:12px;cursor:pointer;border:1px solid var(--line);}
+  .tog-wrap input{opacity:0;width:0;height:0;position:absolute;}
+  .tog-thumb{position:absolute;width:18px;height:18px;background:var(--gold);border-radius:50%;top:2px;left:2px;transition:transform .2s;}
+  .tog-wrap input:checked~.tog-thumb{transform:translateX(20px);}
+  .save-pill{font-size:11px;padding:3px 10px;background:rgba(210,171,115,0.14);color:var(--gold);border:1px solid var(--line-s);border-radius:20px;letter-spacing:0.5px;}
+  .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:44px;}
   .plan{border:1px solid var(--line);border-radius:22px;background:var(--panel);padding:28px;display:flex;flex-direction:column;}
   .plan.featured{background:linear-gradient(170deg,rgba(210,171,115,0.12),rgba(245,245,245,0.04));border-color:var(--gold);}
-  .plan-badge{display:inline-block;width:fit-content;color:var(--gold);border:1px solid var(--line-s);border-radius:999px;padding:5px 11px;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:16px;}
-  .plan h3{font-size:26px;margin-bottom:7px;}
-  .plan .who{color:var(--muted);font-size:14px;margin:0 0 20px;line-height:1.55;}
-  .plan .price{font-family:'Bellefair',serif;font-size:38px;color:var(--gold);margin:0 0 3px;}
-  .plan .price-note{color:var(--dim);font-size:12px;margin-bottom:20px;}
-  .plan ul{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:10px;}
-  .plan li{color:var(--ink);font-size:14px;display:flex;gap:8px;}
+  .plan-badge{display:inline-block;width:fit-content;color:var(--gold);border:1px solid var(--line-s);border-radius:999px;padding:5px 11px;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:14px;}
+  .plan h3{font-family:'Bellefair',serif;font-size:24px;font-weight:400;margin-bottom:5px;}
+  .plan .who{color:var(--muted);font-size:13px;margin:0 0 18px;line-height:1.5;}
+  .plan .price{font-family:'Bellefair',serif;font-size:40px;color:var(--gold);margin:0 0 2px;}
+  .plan .price-note{color:var(--dim);font-size:11px;margin-bottom:18px;min-height:16px;}
+  .plan ul{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:9px;}
+  .plan li{color:var(--ink);font-size:13px;display:flex;gap:8px;}
   .plan li::before{content:'—';color:var(--gold);flex-shrink:0;}
   .plan .btn{margin-top:auto;width:100%;justify-content:center;}
+  .addons-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .addon{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:22px;display:flex;flex-direction:column;}
+  .addon-name{font-family:'Bellefair',serif;font-size:17px;font-weight:400;margin-bottom:6px;}
+  .addon-price{font-family:'Bellefair',serif;font-size:26px;color:var(--gold);margin-bottom:8px;}
+  .addon-price span{font-family:'Abel',sans-serif;font-size:12px;color:var(--dim);}
+  .addon-desc{font-size:12px;color:var(--muted);line-height:1.65;flex:1;margin-bottom:14px;}
+  .addon-btn{display:block;text-align:center;padding:10px;border:1px solid var(--line);border-radius:999px;font-family:'Abel',sans-serif;font-size:12px;color:var(--white);text-decoration:none;transition:border-color .15s,color .15s;}
+  .addon-btn:hover{border-color:var(--gold);color:var(--gold);}
 
   /* DATA */
-  .data-sec{background:var(--teal-2);border-top:1px solid var(--line);}
+  .data-sec{background:var(--teal);border-top:1px solid var(--line);}
   .data-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   .data-card{border:1px solid var(--line);border-radius:22px;background:var(--panel);padding:30px;}
   .data-card h3{font-size:26px;margin-bottom:12px;}
@@ -172,17 +185,16 @@
     .nav-links a:not(.nav-cta){display:none;}
     .hero-grid,.split,.data-grid{grid-template-columns:1fr;}
     .dash-card{max-width:600px;}
-    .risk-grid,.sys-grid,.plan-grid{grid-template-columns:1fr 1fr;}
+    .risk-grid,.sys-grid,.plans-grid,.addons-grid{grid-template-columns:1fr 1fr;}
     .step{grid-template-columns:80px 1fr;}
     .step-tag{display:none;}
   }
   @media(max-width:640px){
     .wrap{width:calc(100% - 32px);}
-    .hero{padding:104px 0 52px;}
+    .hero{padding:108px 0 52px;}
     section{padding:60px 0;}
     .hero h1{font-size:clamp(34px,11vw,50px);}
-    .hero-proof,.metrics,.risk-grid,.sys-grid,.plan-grid,.data-grid{grid-template-columns:1fr;}
-    .cta-sec{padding:60px 0 68px;}
+    .hero-proof,.metrics,.risk-grid,.sys-grid,.plans-grid,.addons-grid,.data-grid{grid-template-columns:1fr;}
     .footer-inner{flex-direction:column;align-items:flex-start;}
   }
 </style>
@@ -192,15 +204,13 @@
 <nav class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="#top">
-      <img class="brand-logo" src="Transparent_Logo.svg" alt="ATM Platform">
-      <span class="brand-div"></span>
-      <span class="brand-tag">Aircraft Transition Manager</span>
+      <img src="Transparent_Logo.svg" alt="ATM Platform">
     </a>
     <div class="nav-links">
       <a href="#problem">Why it exists</a>
       <a href="#system">System</a>
       <a href="#workflow">Workflow</a>
-      <a href="#engagement">Engagement</a>
+      <a href="#pricing">Pricing</a>
       <a href="mailto:geoffrey@liberatedblade.com?subject=ATM Platform Discussion" class="nav-cta">Request briefing</a>
     </div>
   </div>
@@ -215,7 +225,7 @@
         <h1>Aircraft transitions fail in the gaps between parties. <em>ATM closes the gaps.</em></h1>
         <p class="hero-lead">A neutral, operator-led control platform for lease transitions, pre-purchase inspections, conformity work, open items, records review, and re-induction readiness.</p>
         <div class="hero-actions">
-          <a class="btn btn-gold" href="mailto:geoffrey@liberatedblade.com?subject=ATM Platform Briefing Request">Request a private briefing</a>
+          <a class="btn btn-gold" href="#pricing">View pricing</a>
           <a class="btn btn-outline" href="#system">See how it works</a>
         </div>
         <div class="hero-proof">
@@ -224,7 +234,6 @@
           <div class="proof-item"><b>1</b><span>Shared source of truth for all parties</span></div>
         </div>
       </div>
-
       <aside class="dash-card">
         <div class="dash-top">
           <div class="dash-dots"><span></span><span></span><span></span></div>
@@ -280,7 +289,7 @@
         <div class="cred-list">
           <div class="cred"><span class="cred-check">✓</span><div><b>Neutral platform</b><span>ATM serves lessors, buyers, inspectors, and MRO teams equally — no party has an information advantage.</span></div></div>
           <div class="cred"><span class="cred-check">✓</span><div><b>Operator-managed</b><span>Each transaction workspace is provisioned and managed by a qualified inspection operator, not left to self-service.</span></div></div>
-          <div class="cred"><span class="cred-check">✓</span><div><b>Designed for transaction integrity</b><span>Every sheet, report, and permission layer is structured around defensible deal execution and audit-ready outputs.</span></div></div>
+          <div class="cred"><span class="cred-check">✓</span><div><b>Transaction integrity</b><span>Every sheet, report, and permission layer is structured around defensible deal execution and audit-ready outputs.</span></div></div>
         </div>
       </div>
     </div>
@@ -294,21 +303,9 @@
         <p>Each aircraft transaction gets a structured workspace with controlled access, live open item status, phase readiness tracking, and reportable outputs.</p>
       </div>
       <div class="sys-grid">
-        <article class="sys-card">
-          <h3>Aircraft workspace</h3>
-          <p>Each tail/MSN receives a dedicated transaction workspace covering aircraft identity, physical inspection, records, systems, phase status, and dashboard views.</p>
-          <div class="sys-list"><span>Aircraft Identity</span><span>Engines · APU · Landing Gear</span><span>ADs · STCs · Records Review</span></div>
-        </article>
-        <article class="sys-card">
-          <h3>Open item control</h3>
-          <p>Findings don't die in a report. They stay live, owned, prioritized, and tracked until resolved or formally accepted as a condition of the transaction.</p>
-          <div class="sys-list"><span>Owner assignment</span><span>Priority and target dates</span><span>Resolution history</span></div>
-        </article>
-        <article class="sys-card">
-          <h3>Report output</h3>
-          <p>Branded inspection packages generated from structured source data — no manual assembly. Evidence behind the recommendation is preserved in the workspace.</p>
-          <div class="sys-list"><span>Executive summary</span><span>Finding tables with exposure</span><span>Phase readiness sign-off</span></div>
-        </article>
+        <article class="sys-card"><h3>Aircraft workspace</h3><p>Each tail/MSN receives a dedicated transaction workspace covering aircraft identity, physical inspection, records, systems, phase status, and dashboard views.</p><div class="sys-list"><span>Aircraft Identity</span><span>Engines · APU · Landing Gear</span><span>ADs · STCs · Records Review</span></div></article>
+        <article class="sys-card"><h3>Open item control</h3><p>Findings don't die in a report. They stay live, owned, prioritized, and tracked until resolved or formally accepted as a condition of the transaction.</p><div class="sys-list"><span>Owner assignment</span><span>Priority and target dates</span><span>Resolution history</span></div></article>
+        <article class="sys-card"><h3>Report output</h3><p>Branded inspection packages generated from structured source data — no manual assembly. Evidence behind the recommendation is preserved in the workspace.</p><div class="sys-list"><span>Executive summary</span><span>Finding tables with exposure</span><span>Phase readiness sign-off</span></div></article>
       </div>
     </div>
   </section>
@@ -321,66 +318,85 @@
         <p>ATM runs the work while the aircraft transaction is active — not as a post-event documentation tool.</p>
       </div>
       <div class="steps">
-        <div class="step"><div><h3>Workspace provisioned</h3><p>Aircraft identity and available source data are loaded into a clean, structured transaction workspace before inspection begins.</p></div><span class="step-tag">Transaction setup</span></div>
-        <div class="step"><div><h3>Inspection and records review</h3><p>Physical condition, technical records, AD/STC status, engine/APU/gear data, and conformity items are captured into structured sheets in real time.</p></div><span class="step-tag">Evidence capture</span></div>
+        <div class="step"><div><h3>Workspace provisioned</h3><p>Aircraft identity and source data loaded into a clean structured workspace before inspection begins.</p></div><span class="step-tag">Transaction setup</span></div>
+        <div class="step"><div><h3>Inspection and records review</h3><p>Physical condition, technical records, AD/STC status, engine/APU/gear data, and conformity items captured in real time.</p></div><span class="step-tag">Evidence capture</span></div>
         <div class="step"><div><h3>Open items controlled</h3><p>Every issue receives status, owner, priority, target date, and resolution path. Nothing floats in email.</p></div><span class="step-tag">Accountability</span></div>
-        <div class="step"><div><h3>Phase decision made</h3><p>The transaction moves toward GO, GO WITH CONDITIONS, or NO-GO using live structured data rather than fragmented email threads.</p></div><span class="step-tag">Decision support</span></div>
-        <div class="step"><div><h3>Report generated</h3><p>Final outputs are produced directly from the controlled workspace with a complete, defensible audit trail attached.</p></div><span class="step-tag">Client deliverable</span></div>
+        <div class="step"><div><h3>Phase decision made</h3><p>GO, GO WITH CONDITIONS, or NO-GO — using live structured data, not fragmented email threads.</p></div><span class="step-tag">Decision support</span></div>
+        <div class="step"><div><h3>Report generated</h3><p>Final outputs produced directly from the controlled workspace with a complete, defensible audit trail.</p></div><span class="step-tag">Client deliverable</span></div>
       </div>
     </div>
   </section>
 
-  <section class="engagement-sec" id="engagement">
+  <section class="pricing-sec" id="pricing">
     <div class="wrap">
       <div class="section-head">
-        <div class="sec-label">Engagement models</div>
-        <h2>Structured for live transactions, not casual subscriptions.</h2>
-        <p>Pricing reflects the work: active aircraft, transaction complexity, report outputs, and the level of managed support required.</p>
+        <div class="sec-label">Pricing</div>
+        <h2>Platform plans</h2>
+        <p>Subscription access for active platform use. All plans include the full 17-sheet ATM workspace per transaction.</p>
       </div>
-      <div class="plan-grid">
-        <article class="plan">
-          <span class="plan-badge">Launch partner</span>
-          <h3>Prototype Deployment</h3>
-          <p class="who">For the first operator adopting the platform and shaping the production model.</p>
+
+      <div class="billing-toggle">
+        <span class="tog-lbl on" id="lbl-mo">Monthly</span>
+        <label class="tog-wrap"><input type="checkbox" id="btog" onchange="swBill()"><span class="tog-thumb"></span></label>
+        <span class="tog-lbl" id="lbl-yr">Annual</span>
+        <span class="save-pill">Save 17%</span>
+      </div>
+
+      <div class="plans-grid">
+        <div class="plan">
+          <div class="plan-badge">Starter</div>
+          <h3>Starter</h3>
+          <p class="who">MROs and inspection firms entering transition work</p>
+          <p class="price" id="p-s">$750</p>
+          <p class="price-note" id="pn-s">/month</p>
+          <ul>
+            <li>Up to 3 active transactions</li>
+            <li>5 PDF inspection reports/month</li>
+            <li>Standard 17-sheet ATM template</li>
+            <li>Phase tracker &amp; open items ledger</li>
+            <li>Email support</li>
+          </ul>
+          <a class="btn btn-outline" id="btn-s" href="https://buy.stripe.com/test_14A8wQ7tm5Ef3ErgY587K00">Get started</a>
+        </div>
+        <div class="plan featured">
+          <div class="plan-badge">Most popular</div>
+          <h3>Professional</h3>
+          <p class="who">Lessors &amp; buyers with active fleets</p>
+          <p class="price" id="p-p">$1,500</p>
+          <p class="price-note" id="pn-p">/month</p>
+          <ul>
+            <li>Up to 10 active transactions</li>
+            <li>Unlimited PDF inspection reports</li>
+            <li>Role-based Dynamic View access</li>
+            <li>Custom branding on all reports</li>
+            <li>Bridge open-item automations</li>
+            <li>Priority support</li>
+          </ul>
+          <a class="btn btn-gold" id="btn-p" href="https://buy.stripe.com/test_dRmdRa6p19Uv4IvcHP87K02">Get started</a>
+        </div>
+        <div class="plan">
+          <div class="plan-badge">Enterprise</div>
+          <h3>Enterprise</h3>
+          <p class="who">Fleet managers &amp; institutional lessors</p>
           <p class="price">Custom</p>
-          <p class="price-note">12-month pricing lock available</p>
+          <p class="price-note">Annual contracts · volume pricing</p>
           <ul>
-            <li>Configured template workspace</li>
-            <li>First live transaction support</li>
-            <li>Report template setup</li>
-            <li>Role-based permission model</li>
+            <li>Unlimited active transactions</li>
+            <li>Full managed service option</li>
+            <li>Dedicated account manager</li>
+            <li>Benchmarking intelligence access</li>
+            <li>SLA guarantee</li>
           </ul>
-          <a class="btn btn-outline" href="mailto:geoffrey@liberatedblade.com?subject=ATM Launch Partner Discussion">Discuss launch terms</a>
-        </article>
-        <article class="plan featured">
-          <span class="plan-badge">Primary model</span>
-          <h3>Managed Transaction</h3>
-          <p class="who">For lessors, buyers, inspectors, and MRO teams running active lease transitions.</p>
-          <p class="price">Per aircraft</p>
-          <p class="price-note">Setup + active workspace + report outputs</p>
-          <ul>
-            <li>Dedicated aircraft workspace</li>
-            <li>Open Items Ledger and Phase Tracker</li>
-            <li>Controlled stakeholder access</li>
-            <li>Branded PDF inspection package</li>
-            <li>Optional dashboard and automation layer</li>
-          </ul>
-          <a class="btn btn-gold" href="mailto:geoffrey@liberatedblade.com?subject=ATM Managed Transaction Briefing">Request briefing</a>
-        </article>
-        <article class="plan">
-          <span class="plan-badge">Scale option</span>
-          <h3>Fleet Program</h3>
-          <p class="who">For institutional lessors and operators managing multiple aircraft transitions.</p>
-          <p class="price">Enterprise</p>
-          <p class="price-note">Volume pricing and annual support model</p>
-          <ul>
-            <li>Multi-aircraft workspace structure</li>
-            <li>Portfolio dashboarding</li>
-            <li>Repeatable transaction templates</li>
-            <li>Benchmarking-ready data capture</li>
-          </ul>
-          <a class="btn btn-outline" href="mailto:geoffrey@liberatedblade.com?subject=ATM Fleet Program Inquiry">Explore fleet program</a>
-        </article>
+          <a class="btn btn-outline" href="mailto:geoffrey@liberatedblade.com?subject=ATM Enterprise Inquiry">Contact us</a>
+        </div>
+      </div>
+
+      <div class="sec-label" style="margin-bottom:16px;">One-time products &amp; add-ons</div>
+      <div class="addons-grid">
+        <div class="addon"><div class="addon-name">Platform Setup &amp; Onboarding</div><div class="addon-price">$10,000</div><div class="addon-desc">Complete workspace config, first transaction loaded, 4-hr staff training, 30-day hypercare support.</div><a href="https://buy.stripe.com/test_7sY7sMdRK5EfcaXgY587K04" class="addon-btn">Add to order</a></div>
+        <div class="addon"><div class="addon-name">ATM Template License</div><div class="addon-price">$2,500</div><div class="addon-desc">Full 17-sheet Smartsheet workspace template with implementation guide. DIY setup.</div><a href="https://buy.stripe.com/test_3cIcN68xq5Ef4Iv7nv87K05" class="addon-btn">Buy license</a></div>
+        <div class="addon"><div class="addon-name">Transaction Pack — 5/year</div><div class="addon-price">$10,000 <span>/yr</span></div><div class="addon-desc">5 aircraft workspace activations/year. PDF reports per transaction included. Annual renewal.</div><a href="https://buy.stripe.com/test_dRm8wQfZSaYza2P5fn87K06" class="addon-btn">Buy pack</a></div>
+        <div class="addon"><div class="addon-name">Transaction Pack — 10/year</div><div class="addon-price">$18,000 <span>/yr</span></div><div class="addon-desc">10 aircraft workspace activations/year. Best value for active lessors. Annual renewal.</div><a href="https://buy.stripe.com/test_bJe28s6pifePb6T8rz87K07" class="addon-btn">Buy pack</a></div>
       </div>
     </div>
   </section>
@@ -390,22 +406,25 @@
       <div class="data-card">
         <div class="sec-label">Long-term defensibility</div>
         <h3>Every transaction improves the intelligence layer.</h3>
-        <p>ATM captures consistent transition data from day one: findings, records gaps, phase readiness, recurring exposure patterns, and resolution timelines. Over time, that dataset becomes benchmarking intelligence no competitor can replicate.</p>
+        <p>ATM captures consistent transition data from day one: findings, records gaps, phase readiness, recurring exposure patterns, and resolution timelines. Over time that dataset becomes benchmarking intelligence no competitor can replicate.</p>
       </div>
       <div class="data-card">
         <div class="sec-label">Market focus</div>
         <h3>Narrowbody aircraft first.</h3>
-        <p>Built around commercial narrowbody transition workflows where repeatable structure matters most: A320 family, 737 family, lease returns, pre-purchase inspections, conformity, records review, and re-induction support.</p>
+        <p>Built around commercial narrowbody transition workflows: A320 family, 737 family, lease returns, pre-purchase inspections, conformity, records review, and re-induction support.</p>
       </div>
     </div>
   </section>
 
   <section class="cta-sec">
     <div class="wrap">
-      <div class="sec-label">Private launch</div>
+      <div class="sec-label">Get started</div>
       <h2>Ready to run the first controlled transaction?</h2>
-      <p>ATM is in launch partner deployment before broader market release. Request a private briefing to review the workspace, report output, and engagement structure.</p>
-      <a class="btn btn-gold" href="mailto:geoffrey@liberatedblade.com?subject=ATM Private Launch Briefing">Request private briefing</a>
+      <p>Deploy your first workspace, run a live transition, and see exactly how ATM changes the way aircraft deals get done.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a class="btn btn-gold" href="#pricing">View pricing</a>
+        <a class="btn btn-outline" href="mailto:geoffrey@liberatedblade.com?subject=ATM Private Briefing">Request private briefing</a>
+      </div>
     </div>
   </section>
 
@@ -421,6 +440,21 @@
   </div>
 </footer>
 
-<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+var isAnn=false;
+var U={sm:'https://buy.stripe.com/test_14A8wQ7tm5Ef3ErgY587K00',sa:'https://buy.stripe.com/test_00w8wQdRK4Aba2P9vD87K01',pm:'https://buy.stripe.com/test_dRmdRa6p19Uv4IvcHP87K02',pa:'https://buy.stripe.com/test_dRm5kE14YaYzfn9bDL87K03'};
+function swBill(){
+  isAnn=document.getElementById('btog').checked;
+  document.getElementById('lbl-mo').classList.toggle('on',!isAnn);
+  document.getElementById('lbl-yr').classList.toggle('on',isAnn);
+  document.getElementById('p-s').textContent=isAnn?'$625':'$750';
+  document.getElementById('pn-s').textContent=isAnn?'/ month · billed $7,500/year':'/month';
+  document.getElementById('p-p').textContent=isAnn?'$1,250':'$1,500';
+  document.getElementById('pn-p').textContent=isAnn?'/ month · billed $15,000/year':'/month';
+  document.getElementById('btn-s').href=isAnn?U.sa:U.sm;
+  document.getElementById('btn-p').href=isAnn?U.pa:U.pm;
+}
+</script>
 </body>
 </html>
