@@ -161,7 +161,7 @@
   .addon-desc{font-size:12px;color:var(--muted);line-height:1.65;flex:1;margin-bottom:14px;}
   .addon-btn{display:block;text-align:center;padding:10px;border:1px solid var(--line);border-radius:999px;font-family:'Abel',sans-serif;font-size:12px;color:var(--white);text-decoration:none;transition:border-color .15s,color .15s;}
   .addon-btn:hover{border-color:var(--gold);color:var(--gold);}
-  .addon-btn.disabled,.btn.disabled{opacity:0.35;pointer-events:none;cursor:not-allowed;}
+  .addon-btn.disabled,.btn.disabled{opacity:0.35;cursor:not-allowed;}
   .btn.disabled::after{content:' ↑ Agree to terms above';font-size:10px;display:block;opacity:0.6;margin-top:2px;}
   .terms-bar{margin:0 0 32px;padding:20px 24px;border:1px solid rgba(210,171,115,0.35);border-radius:14px;background:rgba(210,171,115,0.06);display:flex;align-items:flex-start;gap:14px;}
   .terms-bar input[type=checkbox]{width:20px;height:20px;flex-shrink:0;margin-top:2px;accent-color:var(--gold);cursor:pointer;}
@@ -231,7 +231,7 @@
 <nav class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="#top">
-      <img src="Transparent_Logo.svg" alt="ATM Platform">
+      <img src="logo-mark.svg" alt="ATM Platform">
     </a>
     <div class="nav-links">
       <a href="#problem">Why it exists</a>
@@ -505,10 +505,23 @@ var U={sm:'https://buy.stripe.com/test_14A8wQ7tm5Ef3ErgY587K00',sa:'https://buy.
 function setPurchaseState(enabled){
   ['btn-s','btn-p'].forEach(function(id){
     var el=document.getElementById(id);
-    if(el){el.classList.toggle('disabled',!enabled);}
+    if(!el) return;
+    el.classList.toggle('disabled',!enabled);
+    if(!enabled){
+      if(el.href) el.setAttribute('data-href',el.href);
+      el.removeAttribute('href');
+    } else {
+      if(el.getAttribute('data-href')) el.href=el.getAttribute('data-href');
+    }
   });
   document.querySelectorAll('.addon-btn').forEach(function(el){
     el.classList.toggle('disabled',!enabled);
+    if(!enabled){
+      if(el.href) el.setAttribute('data-href',el.href);
+      el.removeAttribute('href');
+    } else {
+      if(el.getAttribute('data-href')) el.href=el.getAttribute('data-href');
+    }
   });
 }
 setPurchaseState(false);
@@ -523,8 +536,10 @@ document.addEventListener('click',function(e){
   var t=e.target.closest('.addon-btn,.btn');
   if(t && t.classList.contains('disabled')){
     e.preventDefault();
+    e.stopPropagation();
     document.getElementById('terms-modal').classList.add('open');
     document.body.style.overflow='hidden';
+    return false;
   }
 });
 
@@ -552,8 +567,13 @@ function swBill(){
   document.getElementById('pn-s').textContent=isAnn?'/ month · billed $7,500/year':'/month';
   document.getElementById('p-p').textContent=isAnn?'$1,250':'$1,500';
   document.getElementById('pn-p').textContent=isAnn?'/ month · billed $15,000/year':'/month';
-  document.getElementById('btn-s').href=isAnn?U.sa:U.sm;
-  document.getElementById('btn-p').href=isAnn?U.pa:U.pm;
+  var agreed=document.getElementById('terms-agree').checked;
+  var sUrl=isAnn?U.sa:U.sm;
+  var pUrl=isAnn?U.pa:U.pm;
+  var sBtn=document.getElementById('btn-s');
+  var pBtn=document.getElementById('btn-p');
+  if(agreed){sBtn.href=sUrl;pBtn.href=pUrl;}
+  else{sBtn.setAttribute('data-href',sUrl);pBtn.setAttribute('data-href',pUrl);}
 }
 </script>
 </body>
