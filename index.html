@@ -161,14 +161,16 @@
   .addon-desc{font-size:12px;color:var(--muted);line-height:1.65;flex:1;margin-bottom:14px;}
   .addon-btn{display:block;text-align:center;padding:10px;border:1px solid var(--line);border-radius:999px;font-family:'Abel',sans-serif;font-size:12px;color:var(--white);text-decoration:none;transition:border-color .15s,color .15s;}
   .addon-btn:hover{border-color:var(--gold);color:var(--gold);}
-  .addon-btn.disabled,.btn.disabled{opacity:0.38;pointer-events:none;cursor:not-allowed;}
-  .terms-bar{margin:32px 0 20px;padding:18px 22px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,0.04);display:flex;align-items:flex-start;gap:14px;}
-  .terms-bar input[type=checkbox]{width:18px;height:18px;flex-shrink:0;margin-top:2px;accent-color:var(--gold);cursor:pointer;}
-  .terms-bar label{font-size:13px;color:var(--muted);line-height:1.6;cursor:pointer;}
+  .addon-btn.disabled,.btn.disabled{opacity:0.35;pointer-events:none;cursor:not-allowed;}
+  .btn.disabled::after{content:' ↑ Agree to terms above';font-size:10px;display:block;opacity:0.6;margin-top:2px;}
+  .terms-bar{margin:0 0 32px;padding:20px 24px;border:1px solid rgba(210,171,115,0.35);border-radius:14px;background:rgba(210,171,115,0.06);display:flex;align-items:flex-start;gap:14px;}
+  .terms-bar input[type=checkbox]{width:20px;height:20px;flex-shrink:0;margin-top:2px;accent-color:var(--gold);cursor:pointer;}
+  .terms-bar label{font-size:13px;color:var(--white);line-height:1.65;cursor:pointer;}
   .terms-bar label a{color:var(--gold);text-decoration:underline;}
   .terms-bar label a:hover{color:var(--gold-2);}
-  .terms-warn{font-size:11px;color:rgba(210,171,115,0.6);margin-top:6px;margin-left:32px;display:none;}
+  .terms-warn{font-size:12px;color:var(--gold);margin-top:6px;display:none;opacity:0.8;}
   .terms-warn.show{display:block;}
+  .terms-locked-hint{font-size:11px;color:rgba(245,245,245,0.35);margin-top:4px;}
 
   /* DATA */
   .data-sec{background:var(--teal);border-top:1px solid var(--line);}
@@ -343,6 +345,14 @@
         <p>Subscription access for active platform use. All plans include the full 17-sheet ATM workspace per transaction.</p>
       </div>
 
+      <div class="terms-bar">
+        <input type="checkbox" id="terms-agree" onchange="handleTerms(this)">
+        <div>
+          <label for="terms-agree">I have read and agree to the ATM Platform <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>. I understand that platform outputs are informational only and do not constitute technical, regulatory, or airworthiness determinations.</label>
+          <div class="terms-warn" id="terms-warn">Please agree to the Terms of Service to unlock pricing.</div>
+        </div>
+      </div>
+
       <div class="billing-toggle">
         <span class="tog-lbl on" id="lbl-mo">Monthly</span>
         <label class="tog-wrap"><input type="checkbox" id="btog" onchange="swBill()"><span class="tog-thumb"></span></label>
@@ -400,15 +410,6 @@
       </div>
 
       <div class="sec-label" style="margin-bottom:16px;">One-time products &amp; add-ons</div>
-
-      <div class="terms-bar">
-        <input type="checkbox" id="terms-agree" onchange="handleTerms(this)">
-        <div>
-          <label for="terms-agree">I have read and agree to the ATM Platform <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>. I understand that platform outputs are informational only and do not constitute technical, regulatory, or airworthiness determinations.</label>
-          <div class="terms-warn" id="terms-warn">Please agree to the Terms of Service before purchasing.</div>
-        </div>
-      </div>
-
       <div class="addons-grid">
         <div class="addon"><div class="addon-name">Platform Setup &amp; Onboarding</div><div class="addon-price">$10,000</div><div class="addon-desc">Complete workspace config, first transaction loaded, 4-hr staff training, 30-day hypercare support.</div><a href="https://buy.stripe.com/test_7sY7sMdRK5EfcaXgY587K04" class="addon-btn">Add to order</a></div>
         <div class="addon"><div class="addon-name">ATM Template License</div><div class="addon-price">$2,500</div><div class="addon-desc">Full 17-sheet Smartsheet workspace template with implementation guide. DIY setup.</div><a href="https://buy.stripe.com/test_3cIcN68xq5Ef4Iv7nv87K05" class="addon-btn">Buy license</a></div>
