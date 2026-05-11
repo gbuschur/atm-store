@@ -591,6 +591,10 @@ function goCheckout() {
     document.body.style.overflow = 'hidden';
     return;
   }
+  // Save to sessionStorage so thank-you page can read it
+  localStorage.setItem('atm_msn', state.msn);
+  localStorage.setItem('atm_aircraft', state.mfr + ' ' + state.type);
+  localStorage.setItem('atm_product', state.product);
   var ref = encodeURIComponent('MSN' + state.msn + ' | ' + state.mfr + ' ' + state.type + ' | ' + state.product);
   var url = STRIPE[state.product] + '?client_reference_id=' + ref;
   window.location.href = url;

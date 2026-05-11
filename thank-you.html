@@ -139,24 +139,22 @@
 <script>
 document.getElementById('yr').textContent=new Date().getFullYear();
 
-// Parse client_reference_id from URL
-// Format: MSN5517 | Airbus A320 | transition
-var params = new URLSearchParams(window.location.search);
-var ref = params.get('client_reference_id') || '';
+// Read from sessionStorage (set before Stripe redirect)
+var msn      = localStorage.getItem('atm_msn') || '';
+var aircraft = localStorage.getItem('atm_aircraft') || '';
+var product  = localStorage.getItem('atm_product') || '';
 
-if (ref) {
-  var parts = ref.split(' | ');
-  var msn = parts[0] ? parts[0].replace('MSN','') : '—';
-  var aircraft = parts[1] || '—';
-  var product = parts[2] ? (parts[2] === 'inspection' ? 'Inspection' : 'Transition') : '—';
-
-  document.getElementById('det-aircraft').textContent = aircraft;
+if (msn) {
+  var productLabel = product === 'inspection' ? 'Inspection' : 'Transition';
+  document.getElementById('det-aircraft').textContent = aircraft || '—';
   document.getElementById('det-msn').textContent = 'MSN ' + msn;
-  document.getElementById('det-product').textContent = product + ' Project';
-
-  // Pre-fill email subject with MSN
-  var emailLink = document.getElementById('email-link');
-  emailLink.href = 'mailto:geoffrey@liberatedblade.com?subject=ATM Workspace Setup — MSN ' + msn + ' ' + aircraft + ' ' + product;
+  document.getElementById('det-product').textContent = productLabel + ' Project';
+  document.getElementById('email-link').href =
+    'mailto:geoffrey@liberatedblade.com?subject=ATM Workspace Setup — MSN ' + msn + ' ' + aircraft + ' ' + productLabel;
+  // Clear so it doesn't persist on refresh
+  localStorage.removeItem('atm_msn');
+  localStorage.removeItem('atm_aircraft');
+  localStorage.removeItem('atm_product');
 }
 </script>
 </body>
