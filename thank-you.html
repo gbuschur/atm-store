@@ -91,13 +91,13 @@
       <p class="sub">Your payment was processed successfully. You'll receive a confirmation email shortly. The ATM team will reach out within one business day to begin your workspace setup.</p>
 
       <div class="details">
-        <div class="detail"><span>Next step</span><p>Workspace setup</p></div>
-        <div class="detail"><span>Timeline</span><p>Within 48 hours</p></div>
-        <div class="detail"><span>Support</span><p>Direct email</p></div>
+        <div class="detail"><span>Aircraft</span><p id="det-aircraft">—</p></div>
+        <div class="detail"><span>MSN</span><p id="det-msn">—</p></div>
+        <div class="detail"><span>Project</span><p id="det-product">—</p></div>
       </div>
 
       <div class="actions">
-        <a class="btn btn-gold" href="mailto:geoffrey@liberatedblade.com?subject=ATM Workspace Setup — Getting Started">Email the ATM team</a>
+        <a class="btn btn-gold" id="email-link" href="mailto:geoffrey@liberatedblade.com?subject=ATM Workspace Setup — Getting Started">Email the ATM team</a>
         <a class="btn btn-outline" href="/">Back to store</a>
       </div>
 
@@ -136,6 +136,28 @@
   </div>
 </footer>
 
-<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+// Parse client_reference_id from URL
+// Format: MSN5517 | Airbus A320 | transition
+var params = new URLSearchParams(window.location.search);
+var ref = params.get('client_reference_id') || '';
+
+if (ref) {
+  var parts = ref.split(' | ');
+  var msn = parts[0] ? parts[0].replace('MSN','') : '—';
+  var aircraft = parts[1] || '—';
+  var product = parts[2] ? (parts[2] === 'inspection' ? 'Inspection' : 'Transition') : '—';
+
+  document.getElementById('det-aircraft').textContent = aircraft;
+  document.getElementById('det-msn').textContent = 'MSN ' + msn;
+  document.getElementById('det-product').textContent = product + ' Project';
+
+  // Pre-fill email subject with MSN
+  var emailLink = document.getElementById('email-link');
+  emailLink.href = 'mailto:geoffrey@liberatedblade.com?subject=ATM Workspace Setup — MSN ' + msn + ' ' + aircraft + ' ' + product;
+}
+</script>
 </body>
 </html>

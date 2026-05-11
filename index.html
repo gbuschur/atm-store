@@ -142,6 +142,16 @@ section{padding:96px 0;}
 .terms-bar label a{color:var(--gold);text-decoration:underline;}
 .terms-warn{font-size:12px;color:var(--gold);margin-top:6px;display:none;}
 .terms-warn.show{display:block;}
+.msn-wrap{margin-bottom:20px;}
+.msn-wrap label{display:block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.msn-input{width:100%;background:rgba(255,255,255,0.06);border:1px solid var(--line);border-radius:12px;padding:14px 18px;color:var(--white);font-family:'Abel',sans-serif;font-size:20px;letter-spacing:3px;outline:none;transition:border-color .15s;}
+.msn-input::placeholder{color:var(--dim);letter-spacing:1px;font-size:15px;}
+.msn-input:focus{border-color:rgba(210,171,115,0.5);}
+.msn-input.valid{border-color:rgba(210,171,115,0.9);}
+.msn-input.invalid{border-color:rgba(220,80,80,0.7);}
+.msn-hint{font-size:12px;margin-top:6px;}
+.msn-hint.ok{color:var(--gold);}
+.msn-hint.err{color:rgba(220,100,100,0.9);}
 .btn-checkout{width:100%;padding:16px;background:var(--gold);color:var(--teal);border:none;border-radius:999px;font-family:'Bellefair',serif;font-size:20px;cursor:pointer;transition:background .15s;opacity:0.4;pointer-events:none;}
 .btn-checkout.ready{opacity:1;pointer-events:all;}
 .btn-checkout.ready:hover{background:var(--gold-2);}
@@ -375,11 +385,17 @@ footer{background:var(--teal-2);border-top:1px solid var(--line);padding:32px 0;
       <!-- Summary + Checkout -->
       <div class="config-summary" id="config-summary">
         <div class="summary-line">Aircraft: <strong id="sum-aircraft">—</strong></div>
+        <div class="summary-line">MSN: <strong id="sum-msn">—</strong></div>
         <div class="summary-line">Project: <strong id="sum-product">—</strong></div>
         <div class="summary-line">Price: <strong id="sum-price">—</strong></div>
       </div>
 
       <div class="config-actions">
+        <div class="msn-wrap">
+          <label for="msn-input">Aircraft MSN <span style="color:var(--dim);font-size:10px;letter-spacing:1px;">— Manufacturer Serial Number (3–7 digits)</span></label>
+          <input class="msn-input" id="msn-input" type="text" inputmode="numeric" maxlength="7" placeholder="e.g. 5517" oninput="validateMSN(this)">
+          <div class="msn-hint" id="msn-hint"></div>
+        </div>
         <div class="terms-bar">
           <input type="checkbox" id="terms-agree" onchange="handleTerms(this)">
           <div>
@@ -478,14 +494,12 @@ var AIRCRAFT = {
   }
 };
 
-var state = { cls: null, mfr: null, type: null, product: null };
+var state = { cls: null, mfr: null, type: null, product: null, msn: null };
 
 function selectClass(cls, btn) {
-  state = { cls: cls, mfr: null, type: null, product: null };
+  state = { cls: cls, mfr: null, type: null, product: null, msn: state.msn };
   document.querySelectorAll('#step-class .sel-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-
-  // Populate manufacturers
   var mfrs = Object.keys(AIRCRAFT[cls]);
   var html = mfrs.map(m => `<button class="sel-btn" onclick="selectMfr('${m}',this)">${m}</button>`).join('');
   document.getElementById('mfr-btns').innerHTML = html;
@@ -499,7 +513,6 @@ function selectMfr(mfr, btn) {
   state.mfr = mfr; state.type = null; state.product = null;
   document.querySelectorAll('#mfr-btns .sel-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-
   var types = AIRCRAFT[state.cls][mfr];
   var html = types.map(t => `<button class="sel-btn" onclick="selectType('${t}',this)">${t}</button>`).join('');
   document.getElementById('type-btns').innerHTML = html;
@@ -525,21 +538,45 @@ function selectProduct(prod, el) {
   updateSummary();
 }
 
+function validateMSN(input) {
+  var val = input.value.replace(/\D/g, '');
+  input.value = val;
+  var hint = document.getElementById('msn-hint');
+  if (val.length === 0) {
+    input.className = 'msn-input';
+    hint.textContent = '';
+    hint.className = 'msn-hint';
+    state.msn = null;
+  } else if (val.length >= 3 && val.length <= 7) {
+    input.className = 'msn-input valid';
+    hint.textContent = '✓ MSN ' + val;
+    hint.className = 'msn-hint ok';
+    state.msn = val;
+  } else {
+    input.className = 'msn-input invalid';
+    hint.textContent = 'MSN must be 3–7 digits';
+    hint.className = 'msn-hint err';
+    state.msn = null;
+  }
+  updateSummary();
+}
+
 function updateSummary() {
   var sum = document.getElementById('config-summary');
   var btn = document.getElementById('btn-checkout');
   var agreed = document.getElementById('terms-agree').checked;
+  var ready = state.type && state.product && state.msn && agreed;
 
   if (state.type && state.product) {
     document.getElementById('sum-aircraft').textContent = state.mfr + ' ' + state.type;
+    document.getElementById('sum-msn').textContent = state.msn ? 'MSN ' + state.msn : '— enter MSN below';
     document.getElementById('sum-product').textContent = state.product === 'inspection' ? 'Inspection Project' : 'Transition Project';
     document.getElementById('sum-price').textContent = state.product === 'inspection' ? '$750' : '$1,500';
     sum.classList.add('show');
-    if (agreed) btn.classList.add('ready');
   } else {
     sum.classList.remove('show');
-    btn.classList.remove('ready');
   }
+  btn.classList.toggle('ready', !!ready);
 }
 
 function handleTerms(cb) {
@@ -548,13 +585,13 @@ function handleTerms(cb) {
 }
 
 function goCheckout() {
-  if (!state.product || !state.type) return;
+  if (!state.product || !state.type || !state.msn) return;
   if (!document.getElementById('terms-agree').checked) {
     document.getElementById('terms-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
     return;
   }
-  var ref = encodeURIComponent(state.mfr + ' ' + state.type + ' - ' + state.product);
+  var ref = encodeURIComponent('MSN' + state.msn + ' | ' + state.mfr + ' ' + state.type + ' | ' + state.product);
   var url = STRIPE[state.product] + '?client_reference_id=' + ref;
   window.location.href = url;
 }
